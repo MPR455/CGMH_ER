@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGMH Emergency Department — ER Study</title>
+<style>
+:root{
+  --bg:#f4f6f9;--card:#fff;--ink:#1c2733;--sub:#5b6b7c;--line:#dde4ec;
+  --acc:#0f6bb2;--acc2:#0a4f86;--chip:#eaf2fa;--chipink:#0f5d9c;--ok:#1a7f4e;
+  --mono:"Consolas","Menlo","Courier New",monospace
+}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+html{overflow-y:scroll}
+body{margin:0;font-family:"Segoe UI","Noto Sans TC",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+header{background:var(--acc2);color:#fff;padding:5px 18px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.brand .burger{font-size:20px;line-height:1}
+.logo-chip{min-height:34px;background:#fff;color:#0a4f86;border-radius:6px;padding:5px 10px;display:flex;align-items:center;font-weight:750;letter-spacing:.15px;white-space:nowrap}
+nav{display:flex;gap:4px}
+nav button{background:transparent;border:none;color:#cfe3f5;padding:8px 14px;font-size:14px;cursor:pointer;border-radius:6px}
+nav button.active{background:#fff;color:var(--acc2);font-weight:600}
+main{padding:14px 18px;max-width:1500px;margin:0 auto}
+.tab{display:none}.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+label{display:block;font-size:12.5px;color:var(--sub);margin:8px 0 3px}
+input,select{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;font-size:13.5px;font-family:inherit;background:var(--card);color:var(--ink)}
+input:focus,select:focus{outline:2px solid #bcd8ef;border-color:var(--acc)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+button.btn{background:var(--acc);color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:13.5px;cursor:pointer;font-weight:600}
+button.btn:hover{background:var(--acc2)}
+button.btn.sec{background:#e8edf3;color:var(--ink);font-weight:500}
+button.btn.sec:hover{background:#d9e2ec}
+button.btn.sm{padding:4px 10px;font-size:12.5px;font-weight:500}
+button:disabled{opacity:.55;cursor:not-allowed}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.small{font-size:12px;color:var(--sub)}
+.cloze{color:var(--acc);font-weight:700}
+.btn.on{background:var(--acc);color:#fff}
+kbd{background:#eef1f5;border:1px solid #ccd4dd;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-size:11.5px;font-family:var(--mono)}
+.ebrowse-tb{display:flex;gap:6px;margin:8px 0}
+.ecard{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;width:160px;max-height:78px;overflow:hidden;cursor:pointer;background:#fff;line-height:1.35}
+.ecard:hover,.erow:hover{background:var(--chip)}
+.ecard.cur{border-color:var(--acc);box-shadow:0 0 0 2px #bcd8ef}
+.erow{padding:6px 8px;border-bottom:1px solid var(--line);font-size:12.5px;cursor:pointer;display:flex;gap:8px}
+.erow.cur{background:#eaf2fa}.erow .n{color:var(--sub);min-width:26px;text-align:right}
+#anki-card img{max-width:100%;height:auto;border-radius:6px}
+#anki-card hr{border:none;border-top:1px solid var(--line);margin:12px 0}
+#anki-card audio{max-width:100%}
+.menu-dd{position:fixed;top:50px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 34px rgba(0,0,0,.28);min-width:230px;padding:6px;display:none;z-index:200}
+.menu-dd.open{display:block}
+.menu-item{display:block;width:100%;text-align:left;background:transparent;border:none;padding:9px 12px;font-size:14px;color:var(--ink);border-radius:7px;cursor:pointer}
+.menu-item:hover,.menu-item.active{background:var(--chip)}.menu-item.active{font-weight:600}
+.menu-sep{border-top:1px solid var(--line);margin:6px 4px}.menu-label{font-size:11.5px;color:var(--sub);padding:6px 12px 2px;text-transform:uppercase;letter-spacing:.5px}
+.theme-row{display:flex;gap:12px;padding:6px 12px 10px;align-items:center}.theme-dot{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;box-shadow:0 0 0 1px var(--line)}.theme-dot.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
+.tab.locked>*:not(.gate){display:none!important}.gate{display:none;justify-content:center;padding:36px 12px}.tab.locked .gate{display:flex}
+.gatebox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 26px;width:min(360px,92vw);box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.gatebox h2{margin:0 0 4px;font-size:17px;color:var(--acc2)}.gatebox .sub{font-size:12.5px;color:var(--sub);margin-bottom:14px}
+body.theme-macaroon{--bg:#faf3e9;--card:#fffdf8;--ink:#3d3128;--sub:#927f6e;--line:#ecdcc7;--acc:#e0873a;--acc2:#c26a1e;--chip:#f6e7d3;--chipink:#a85f1c}
+body.theme-dark{--bg:#0f1720;--card:#1a2632;--ink:#e6edf3;--sub:#a8bccc;--line:#2c3d4d;--acc:#4db1ea;--acc2:#7fc4f0;--chip:#243544;--chipink:#bfe0f7}
+body.theme-dark header{background:#0c141d}body.theme-dark nav button.active{color:#0c3350}body.theme-dark button.btn.sec{background:#243544;color:var(--ink)}body.theme-dark .ecard{background:#1a2632}body.theme-dark .erow.cur{background:#243544}body.theme-dark kbd{background:#243544;color:var(--ink);border-color:#3a4a5a}
+body.theme-black{--bg:#000;--card:#0b0b0b;--ink:#fff;--sub:#cfcfcf;--line:#333;--acc:#ffd21f;--acc2:#ffd21f;--chip:#1a1a1a;--chipink:#ffd21f}
+body.theme-black header{background:#000;border-bottom:1px solid #333}body.theme-black nav button.active{background:#ffd21f;color:#000}body.theme-black button.btn{color:#000}body.theme-black button.btn.sec{background:#1a1a1a;color:#ffd21f}body.theme-black .ecard{background:#0b0b0b}body.theme-black .erow.cur{background:#1a1a1a}body.theme-black kbd{background:#1a1a1a;color:#ffd21f;border-color:#444}
+@media(max-width:860px){header{padding:8px 10px;gap:8px}.logo-chip{white-space:normal;font-size:12px}header nav{display:flex;flex:1;min-width:0}header nav button{white-space:nowrap;padding:8px 10px}main{padding:12px 10px}.menu-dd{top:58px;left:8px;right:8px;min-width:0}.row{flex-direction:column;gap:6px}.row>*{width:100%}.btnrow{gap:6px}}
+</style>
+</head>
+<body>
+<header>
+  <div id="menu-wrap" style="position:relative">
+    <div class="brand" onclick="toggleMenu(event)" aria-label="Open site menu" role="button" tabindex="0">
+      <span class="burger">☰</span>
+      <span class="logo-chip">CGMH Emergency Department</span>
+    </div>
+  </div>
+  <nav aria-label="Primary navigation"><button class="active" data-tab="anki">🃏 ER Study</button></nav>
+</header>
+<div id="menu-dd" class="menu-dd"></div>
+<main>
+  <div class="tab active locked" id="tab-anki">
+    <div class="gate" id="gate-anki">
+      <div class="gatebox">
+        <h2>🔒 ER Study</h2>
+        <div class="sub">Enter password to continue.</div>
+        <label for="gp-anki">Password</label>
+        <input id="gp-anki" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryLogin()">
+        <div class="btnrow"><button class="btn" onclick="tryLogin()">Unlock</button></div>
+        <div class="small" id="ge-anki" style="color:#c0392b;margin-top:6px"></div>
+      </div>
+    </div>
+    <div style="max-width:820px;margin:0 auto">
+      <details class="card" id="anki-controls" open>
+        <summary style="font-size:15px;font-weight:600;color:var(--acc2);cursor:pointer">🃏 ER Study <span class="small" style="font-weight:400">— deck controls (click to collapse)</span></summary>
+        <div class="row" style="align-items:flex-end;margin-top:10px">
+          <div style="flex:2"><label for="anki-deck">Bundled deck</label><select id="anki-deck"></select></div>
+          <button class="btn sm" onclick="ankiLoadSelected()">Load</button>
+          <button class="btn sm sec" onclick="document.getElementById('anki-file').click()">Open .apkg…</button>
+          <input type="file" id="anki-file" accept=".apkg" style="display:none" onchange="ankiOpenFile(this)">
+        </div>
+        <div class="row" id="anki-catwrap" style="margin-top:10px;display:none"><div style="flex:2"><label for="anki-cat">Category</label><select id="anki-cat" onchange="ankiApplyCategory()"></select></div></div>
+        <label style="display:flex;align-items:center;gap:6px;margin-top:10px"><input type="checkbox" id="anki-shuffle" style="width:auto" onchange="ankiReshuffle()"> Shuffle</label>
+        <div class="small" id="anki-status" style="margin-top:6px">Loads ER flashcards. Internet access is needed the first time to fetch the deck reader.</div>
+      </details>
+      <div class="card" id="anki-viewer" style="display:none">
+        <div class="small" id="anki-count" style="text-align:center;margin-bottom:8px"></div>
+        <div id="anki-card" style="min-height:120px;font-size:16px;line-height:1.55"></div>
+        <div class="btnrow" style="justify-content:center;margin-top:16px">
+          <button class="btn sm sec" onclick="ankiPrev()">◀ Prev</button>
+          <button class="btn sm" id="anki-reveal" onclick="ankiReveal()">Show answer</button>
+          <button class="btn sm sec" onclick="ankiNext()">Next ▶</button>
+        </div>
+        <div class="small" style="text-align:center;margin-top:8px">Keys: <kbd>A</kbd> prev &nbsp;·&nbsp; <kbd>S</kbd> show answer &nbsp;·&nbsp; <kbd>D</kbd> next</div>
+        <details style="margin-top:12px">
+          <summary style="cursor:pointer;font-size:13px;color:var(--acc2);font-weight:600">Browse cards in this category</summary>
+          <div class="ebrowse-tb">
+            <button class="btn sm sec on" id="ev-card" onclick="ankiSetView('card')">🃏 Cards</button>
+            <button class="btn sm sec" id="ev-list" onclick="ankiSetView('list')">☰ List</button>
+          </div>
+          <div id="anki-browse" style="max-height:340px;overflow:auto"></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function tryLogin(){
+  var input=document.getElementById('gp-anki'),err=document.getElementById('ge-anki');
+  if((input.value||'').trim().toLowerCase()==='mpr455'){
+    document.getElementById('tab-anki').classList.remove('locked');err.textContent='';input.value='';
+    try{sessionStorage.setItem('cgmh_er_study_unlocked','1');}catch(e){}
+  }else{err.textContent='Incorrect password.';input.select();}
+}
+function ankiCloze(text,n,showAnswer){
+  return String(text).replace(/\{\{c(\d+)::([\s\S]*?)(?:::([\s\S]*?))?\}\}/g,function(m,num,ans,hint){
+    num=+num;if(num===n)return showAnswer?'<span class="cloze">'+ans+'</span>':'<span class="cloze">['+(hint||'...')+']</span>';return ans;
+  });
+}
+function ankiRender(tmpl,fmap,frontSide,ord,showAnswer){
+  var s=String(tmpl==null?'':tmpl);
+  s=s.replace(/\{\{FrontSide\}\}/g,frontSide||'');
+  s=s.replace(/\{\{cloze:([^}]+)\}\}/g,function(m,f){return ankiCloze(fmap[f.trim()]||'',(ord||0)+1,showAnswer);});
+  s=s.replace(/\{\{#([^}]+)\}\}([\s\S]*?)\{\{\/[^}]+\}\}/g,function(m,f,inner){return fmap[f.trim()]?inner:'';});
+  s=s.replace(/\{\{\^([^}]+)\}\}([\s\S]*?)\{\{\/[^}]+\}\}/g,function(m,f,inner){return fmap[f.trim()]?'':inner;});
+  s=s.replace(/\[sound:([^\]]+)\]/g,function(m,f){return '<audio controls data-file="'+f+'"></audio>';});
+  s=s.replace(/\{\{([^}#\/^][^}]*)\}\}/g,function(m,expr){expr=expr.trim();var name=expr.indexOf(':')>=0?expr.split(':').pop().trim():expr;return fmap[name]!==undefined?fmap[name]:'';});
+  return s;
+}
+async function ankiLoad(zip,SQL){
+  var dbEntry=zip.file('collection.anki21')||zip.file('collection.anki2');if(!dbEntry)throw new Error('NEW_FORMAT');
+  var dbBuf=await dbEntry.async('uint8array'),db=new SQL.Database(dbBuf),colResult=db.exec('SELECT models, decks FROM col');
+  if(!colResult.length)throw new Error('Deck database is missing collection metadata.');
+  var colRow=colResult[0].values[0],models=JSON.parse(colRow[0]),deckMap={};
+  try{var dj=JSON.parse(colRow[1]||'{}');for(var dk in dj)deckMap[String(dj[dk].id)]=dj[dk].name;}catch(e){}
+  var nr=db.exec('SELECT id, mid, flds FROM notes'),notes={};
+  (nr.length?nr[0].values:[]).forEach(function(r){notes[r[0]]={mid:String(r[1]),flds:String(r[2]).split('\x1f')};});
+  var cr=db.exec('SELECT nid, ord, did FROM cards');
+  var raw=(cr.length?cr[0].values:[]).map(function(r){return {nid:r[0],ord:(r[1]|0),did:String(r[2])};});db.close();
+  var media={},me=zip.file('media');if(me){var mj=JSON.parse(await me.async('string'));for(var k in mj)media[mj[k]]=k;}
+  var cards=[];raw.forEach(function(c){var n=notes[c.nid],model=n&&models[n.mid];if(!model)return;var fmap={};(model.flds||[]).forEach(function(f){fmap[f.name]=n.flds[f.ord]||'';});var tmpls=model.tmpls||[],tmpl=model.type===1?(tmpls[0]||{qfmt:'',afmt:''}):(tmpls[c.ord]||tmpls[0]);if(!tmpl)return;cards.push({front:ankiRender(tmpl.qfmt,fmap,'',c.ord,false),back:ankiRender(tmpl.afmt,fmap,ankiRender(tmpl.qfmt,fmap,'',c.ord,false),c.ord,true),model:model.name,deck:deckMap[c.did]||'Default'});});
+  var decks=[];cards.forEach(function(c){if(decks.indexOf(c.deck)<0)decks.push(c.deck);});decks.sort();return {cards:cards,media:media,decks:decks};
+}
+var ankiZip=null,ankiCards=[],ankiMedia={},ankiOrder=[],ankiPos=0,ankiShow=false,ankiLibsP=null,ankiView='card';
+function ankiSetStatus(msg,err){var e=document.getElementById('anki-status');e.textContent=msg;e.style.color=err?'#c0392b':'';}
+function ankiLoadLibs(){
+  if(ankiLibsP)return ankiLibsP;
+  function loadScript(src){return new Promise(function(resolve,reject){var s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=function(){reject(new Error('Could not load '+src));};document.head.appendChild(s);});}
+  ankiLibsP=loadScript('https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js').then(function(){return loadScript('https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js');}).then(function(){return initSqlJs({locateFile:function(f){return 'https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/'+f;}});});
+  return ankiLibsP;
+}
+function ankiInitManifest(){
+  fetch('decks.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[];}).then(function(list){var sel=document.getElementById('anki-deck');if(!Array.isArray(list)||!list.length){sel.innerHTML='<option value="">— no bundled decks —</option>';return;}sel.innerHTML=list.map(function(d){return '<option value="'+esc(d.file)+'">'+esc(d.name||d.file)+'</option>';}).join('');}).catch(function(){document.getElementById('anki-deck').innerHTML='<option value="">— no bundled decks —</option>';});
+}
+async function ankiOpenBuf(buf){
+  ankiSetStatus('Loading reader…');
+  try{var SQL=await ankiLoadLibs(),zip=await JSZip.loadAsync(buf),res=await ankiLoad(zip,SQL);if(!res.cards.length){ankiSetStatus('No cards found in this deck.',true);return;}ankiZip=zip;ankiCards=res.cards;ankiMedia=res.media;var cat=document.getElementById('anki-cat');cat.innerHTML='<option value="">All categories ('+ankiCards.length+')</option>'+res.decks.map(function(dn){var n=ankiCards.filter(function(c){return c.deck===dn;}).length;return '<option value="'+esc(dn)+'">'+esc(dn)+' ('+n+')</option>';}).join('');document.getElementById('anki-catwrap').style.display=res.decks.length>1?'':'none';ankiBuildOrder();document.getElementById('anki-viewer').style.display='block';ankiSetStatus('Loaded '+ankiCards.length+' cards'+(res.decks.length>1?' across '+res.decks.length+' categories':'')+'.');}
+  catch(e){ankiSetStatus(e.message==='NEW_FORMAT'?'This deck uses an unsupported Anki export format. Re-export it with “Support older Anki versions” enabled.':'Could not open deck: '+e.message,true);}
+}
+function ankiLoadSelected(){var f=document.getElementById('anki-deck').value;if(!f){ankiSetStatus('No bundled deck selected — use “Open .apkg…”.',true);return;}ankiSetStatus('Downloading deck…');fetch(f).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.arrayBuffer();}).then(ankiOpenBuf).catch(function(e){ankiSetStatus('Could not fetch '+f+': '+e.message,true);});}
+function ankiOpenFile(input){var f=input.files[0];if(!f)return;f.arrayBuffer().then(ankiOpenBuf);input.value='';}
+function ankiBuildOrder(){var cat=document.getElementById('anki-cat').value||'';ankiOrder=[];for(var i=0;i<ankiCards.length;i++)if(!cat||ankiCards[i].deck===cat)ankiOrder.push(i);if(document.getElementById('anki-shuffle').checked){for(var j=ankiOrder.length-1;j>0;j--){var x=Math.floor(Math.random()*(j+1)),t=ankiOrder[j];ankiOrder[j]=ankiOrder[x];ankiOrder[x]=t;}}ankiPos=0;ankiShow=false;if(ankiOrder.length){ankiRenderCard();ankiRenderBrowse();}else{document.getElementById('anki-card').innerHTML='<div class="small">No cards in this category.</div>';document.getElementById('anki-count').textContent='';document.getElementById('anki-reveal').disabled=true;}}
+function ankiReshuffle(){if(ankiCards.length)ankiBuildOrder();}function ankiApplyCategory(){if(ankiCards.length)ankiBuildOrder();}
+function ankiRenderCard(){if(!ankiCards.length||!ankiOrder.length)return;var cont=document.getElementById('anki-card'),card=ankiCards[ankiOrder[ankiPos]];cont.innerHTML=ankiShow?card.back:card.front;var reveal=document.getElementById('anki-reveal');reveal.textContent=ankiShow?'Answer shown':'Show answer';reveal.disabled=ankiShow;document.getElementById('anki-count').textContent='Card '+(ankiPos+1)+' of '+ankiOrder.length+(card.model?'  ·  '+card.model:'');ankiResolveMedia(cont);ankiHighlightBrowse();}
+function ankiResolveMedia(cont){if(!ankiZip)return;cont.querySelectorAll('img').forEach(function(img){var fn=img.getAttribute('src'),num=ankiMedia[fn];if(num===undefined)return;ankiZip.file(num).async('blob').then(function(b){img.src=URL.createObjectURL(b);});});cont.querySelectorAll('audio[data-file]').forEach(function(audio){var num=ankiMedia[audio.getAttribute('data-file')];if(num===undefined)return;ankiZip.file(num).async('blob').then(function(b){audio.src=URL.createObjectURL(b);});});}
+function ankiReveal(){if(!ankiOrder.length)return;ankiShow=true;ankiRenderCard();}function ankiNext(){if(!ankiOrder.length)return;ankiPos=(ankiPos+1)%ankiOrder.length;ankiShow=false;ankiRenderCard();}function ankiPrev(){if(!ankiOrder.length)return;ankiPos=(ankiPos-1+ankiOrder.length)%ankiOrder.length;ankiShow=false;ankiRenderCard();}
+function ankiText(html){var el=document.createElement('div');el.innerHTML=html;return (el.textContent||'').replace(/\s+/g,' ').trim();}
+function ankiSetView(view){ankiView=view;document.getElementById('ev-card').classList.toggle('on',view==='card');document.getElementById('ev-list').classList.toggle('on',view==='list');ankiRenderBrowse();}
+function ankiRenderBrowse(){var box=document.getElementById('anki-browse');if(!ankiOrder.length){box.innerHTML='<div class="small">No cards.</div>';return;}if(ankiView==='list')box.innerHTML=ankiOrder.map(function(idx,pos){return '<div class="erow'+(pos===ankiPos?' cur':'')+'" data-pos="'+pos+'" onclick="ankiJump('+pos+')"><span class="n">'+(pos+1)+'</span><span>'+esc(ankiText(ankiCards[idx].front)||'(no text)')+'</span></div>';}).join('');else box.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:8px">'+ankiOrder.map(function(idx,pos){return '<div class="ecard'+(pos===ankiPos?' cur':'')+'" data-pos="'+pos+'" onclick="ankiJump('+pos+')"><b>'+(pos+1)+'.</b> '+esc(ankiText(ankiCards[idx].front)||'(no text)')+'</div>';}).join('')+'</div>';}
+function ankiHighlightBrowse(){var box=document.getElementById('anki-browse');box.querySelectorAll('[data-pos]').forEach(function(el){el.classList.toggle('cur',+el.dataset.pos===ankiPos);});var cur=box.querySelector('[data-pos].cur');if(cur)cur.scrollIntoView({block:'nearest'});}function ankiJump(pos){ankiPos=pos;ankiShow=false;ankiRenderCard();}
+function toggleMenu(e){if(e)e.stopPropagation();document.getElementById('menu-dd').classList.toggle('open');}
+function buildMenu(){document.getElementById('menu-dd').innerHTML='<button class="menu-item active">🃏 ER Study</button><div class="menu-sep"></div><div class="menu-label">Color theme</div><div class="theme-row"><div class="theme-dot" title="Default" data-theme="default" style="background:#0f6bb2" onclick="setTheme(\'default\')"></div><div class="theme-dot" title="Macaroon" data-theme="macaroon" style="background:#e0873a" onclick="setTheme(\'macaroon\')"></div><div class="theme-dot" title="Dark" data-theme="dark" style="background:#1a2632" onclick="setTheme(\'dark\')"></div><div class="theme-dot" title="Black / high contrast" data-theme="black" style="background:#000" onclick="setTheme(\'black\')"></div></div>';markThemeDot();}
+function setTheme(theme){document.body.classList.remove('theme-macaroon','theme-dark','theme-black');if(theme!=='default')document.body.classList.add('theme-'+theme);try{localStorage.setItem('cgmh_er_theme',theme);}catch(e){}markThemeDot();}
+function markThemeDot(){var current='default';if(document.body.classList.contains('theme-macaroon'))current='macaroon';else if(document.body.classList.contains('theme-dark'))current='dark';else if(document.body.classList.contains('theme-black'))current='black';document.querySelectorAll('.theme-dot').forEach(function(dot){dot.classList.toggle('sel',dot.dataset.theme===current);});}
+document.addEventListener('click',function(e){if(!e.target.closest('#menu-wrap')&&!e.target.closest('#menu-dd'))document.getElementById('menu-dd').classList.remove('open');});
+document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'){ankiPrev();e.preventDefault();}else if(k==='s'){ankiReveal();e.preventDefault();}else if(k==='d'){ankiNext();e.preventDefault();}});
+(function init(){var theme='default';try{theme=localStorage.getItem('cgmh_er_theme')||'default';if(sessionStorage.getItem('cgmh_er_study_unlocked')==='1')document.getElementById('tab-anki').classList.remove('locked');}catch(e){}setTheme(theme);buildMenu();ankiInitManifest();})();
+</script>
+</body>
+</html>
