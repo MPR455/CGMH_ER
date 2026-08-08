@@ -109,7 +109,7 @@ body.theme-black header{background:#000;border-bottom:1px solid #333}body.theme-
           <button class="btn sm" id="anki-reveal" onclick="ankiReveal()">Show answer</button>
           <button class="btn sm sec" onclick="ankiNext()">Next ▶</button>
         </div>
-        <div class="small" style="text-align:center;margin-top:8px">Keys: <kbd>A</kbd> prev &nbsp;·&nbsp; <kbd>S</kbd> show answer &nbsp;·&nbsp; <kbd>D</kbd> next</div>
+        <div class="small" style="text-align:center;margin-top:8px">Keys: <kbd>A</kbd> / <kbd>←</kbd> prev &nbsp;·&nbsp; <kbd>S</kbd> / <kbd>↓</kbd> show answer &nbsp;·&nbsp; <kbd>D</kbd> / <kbd>→</kbd> next</div>
         <details style="margin-top:12px">
           <summary style="cursor:pointer;font-size:13px;color:var(--acc2);font-weight:600">Browse cards in this category</summary>
           <div class="ebrowse-tb">
@@ -192,7 +192,7 @@ function buildMenu(){document.getElementById('menu-dd').innerHTML='<button class
 function setTheme(theme){document.body.classList.remove('theme-macaroon','theme-dark','theme-black');if(theme!=='default')document.body.classList.add('theme-'+theme);try{localStorage.setItem('cgmh_er_theme',theme);}catch(e){}markThemeDot();}
 function markThemeDot(){var current='default';if(document.body.classList.contains('theme-macaroon'))current='macaroon';else if(document.body.classList.contains('theme-dark'))current='dark';else if(document.body.classList.contains('theme-black'))current='black';document.querySelectorAll('.theme-dot').forEach(function(dot){dot.classList.toggle('sel',dot.dataset.theme===current);});}
 document.addEventListener('click',function(e){if(!e.target.closest('#menu-wrap')&&!e.target.closest('#menu-dd'))document.getElementById('menu-dd').classList.remove('open');});
-document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'){ankiPrev();e.preventDefault();}else if(k==='s'){ankiReveal();e.preventDefault();}else if(k==='d'){ankiNext();e.preventDefault();}});
+document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'||k==='arrowleft'){ankiPrev();e.preventDefault();}else if(k==='s'||k==='arrowdown'){ankiReveal();e.preventDefault();}else if(k==='d'||k==='arrowright'){ankiNext();e.preventDefault();}});
 (function init(){var theme='default';try{theme=localStorage.getItem('cgmh_er_theme')||'default';if(sessionStorage.getItem('cgmh_er_study_unlocked')==='1')document.getElementById('tab-anki').classList.remove('locked');}catch(e){}setTheme(theme);buildMenu();ankiInitManifest();})();
 </script>
 </body>
