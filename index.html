@@ -57,9 +57,6 @@ kbd{background:#eef1f5;border:1px solid #ccd4dd;border-bottom-width:2px;border-r
 .menu-item:hover,.menu-item.active{background:var(--chip)}.menu-item.active{font-weight:600}
 .menu-sep{border-top:1px solid var(--line);margin:6px 4px}.menu-label{font-size:11.5px;color:var(--sub);padding:6px 12px 2px;text-transform:uppercase;letter-spacing:.5px}
 .theme-row{display:flex;gap:12px;padding:6px 12px 10px;align-items:center}.theme-dot{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;box-shadow:0 0 0 1px var(--line)}.theme-dot.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc)}
-.tab.locked>*:not(.gate){display:none!important}.gate{display:none;justify-content:center;padding:36px 12px}.tab.locked .gate{display:flex}
-.gatebox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 26px;width:min(360px,92vw);box-shadow:0 8px 30px rgba(0,0,0,.08)}
-.gatebox h2{margin:0 0 4px;font-size:17px;color:var(--acc2)}.gatebox .sub{font-size:12.5px;color:var(--sub);margin-bottom:14px}
 body.theme-macaroon{--bg:#faf3e9;--card:#fffdf8;--ink:#3d3128;--sub:#927f6e;--line:#ecdcc7;--acc:#e0873a;--acc2:#c26a1e;--chip:#f6e7d3;--chipink:#a85f1c}
 body.theme-dark{--bg:#0f1720;--card:#1a2632;--ink:#e6edf3;--sub:#a8bccc;--line:#2c3d4d;--acc:#4db1ea;--acc2:#7fc4f0;--chip:#243544;--chipink:#bfe0f7}
 body.theme-dark header{background:#0c141d}body.theme-dark header nav button.active{color:#0c3350}body.theme-dark button.btn.sec{background:#243544;color:var(--ink)}body.theme-dark .ecard{background:#1a2632}body.theme-dark .erow.cur{background:#243544}body.theme-dark kbd{background:#243544;color:var(--ink);border-color:#3a4a5a}
@@ -342,17 +339,7 @@ body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick
       <p class="directory-empty" id="directory-empty" role="status" aria-live="polite" hidden>找不到符合的聯絡資料，請試試其他姓名或電話片段。</p>
     </div>
   </section>
-  <div class="tab locked" id="tab-anki" tabindex="-1" aria-label="ER Study">
-    <div class="gate" id="gate-anki">
-      <div class="gatebox">
-        <h2>🔒 ER Study</h2>
-        <div class="sub">Enter password to continue.</div>
-        <label for="gp-anki">Password</label>
-        <input id="gp-anki" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryLogin()">
-        <div class="btnrow"><button class="btn" onclick="tryLogin()">Unlock</button></div>
-        <div class="small" id="ge-anki" style="color:#c0392b;margin-top:6px"></div>
-      </div>
-    </div>
+  <div class="tab" id="tab-anki" tabindex="-1" aria-label="ER Study">
     <div style="max-width:820px;margin:0 auto">
       <details class="card" id="anki-controls" open>
         <summary style="font-size:15px;font-weight:600;color:var(--acc2);cursor:pointer">🃏 ER Study <span class="small" style="font-weight:400">— deck controls (click to collapse)</span></summary>
@@ -676,13 +663,6 @@ document.addEventListener('click',function(event){
 
 
 
-function tryLogin(){
-  var input=document.getElementById('gp-anki'),err=document.getElementById('ge-anki');
-  if((input.value||'').trim().toLowerCase()==='mpr455'){
-    document.getElementById('tab-anki').classList.remove('locked');err.textContent='';input.value='';
-    try{sessionStorage.setItem('cgmh_er_study_unlocked','1');}catch(e){}
-  }else{err.textContent='Incorrect password.';input.select();}
-}
 function ankiCloze(text,n,showAnswer){
   return String(text).replace(/\{\{c(\d+)::([\s\S]*?)(?:::([\s\S]*?))?\}\}/g,function(m,num,ans,hint){
     num=+num;if(num===n)return showAnswer?'<span class="cloze">'+ans+'</span>':'<span class="cloze">['+(hint||'...')+']</span>';return ans;
@@ -837,8 +817,8 @@ function buildMenu(){
 }
 function setTheme(theme){document.body.classList.remove('theme-macaroon','theme-dark','theme-black');if(theme!=='default')document.body.classList.add('theme-'+theme);try{localStorage.setItem('cgmh_er_theme',theme);}catch(e){}markThemeDot();}
 function markThemeDot(){var current='default';if(document.body.classList.contains('theme-macaroon'))current='macaroon';else if(document.body.classList.contains('theme-dark'))current='dark';else if(document.body.classList.contains('theme-black'))current='black';document.querySelectorAll('.theme-dot').forEach(function(dot){dot.classList.toggle('sel',dot.dataset.theme===current);});}
-document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||currentTab!=='anki'||!document.getElementById('mobile-tabs-layer').hidden||document.getElementById('tab-anki').classList.contains('locked')||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'||k==='arrowleft'){ankiPrev();e.preventDefault();}else if(k==='s'||k==='arrowdown'){ankiReveal();e.preventDefault();}else if(k==='d'||k==='arrowright'){ankiNext();e.preventDefault();}});
-(function init(){var theme='default';try{theme=localStorage.getItem('cgmh_er_theme')||'default';if(sessionStorage.getItem('cgmh_er_study_unlocked')==='1')document.getElementById('tab-anki').classList.remove('locked');}catch(e){}setTheme(theme);buildNavigation();buildDirectory();ankiInitManifest();})();
+document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||currentTab!=='anki'||!document.getElementById('mobile-tabs-layer').hidden||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'||k==='arrowleft'){ankiPrev();e.preventDefault();}else if(k==='s'||k==='arrowdown'){ankiReveal();e.preventDefault();}else if(k==='d'||k==='arrowright'){ankiNext();e.preventDefault();}});
+(function init(){var theme='default';try{theme=localStorage.getItem('cgmh_er_theme')||'default';}catch(e){}setTheme(theme);buildNavigation();buildDirectory();ankiInitManifest();})();
 </script>
 </body>
 </html>
