@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CGMH Emergency Department — ER Study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CGMH Emergency Department</title>
 <style>
 :root{
   --bg:#f4f6f9;--card:#fff;--ink:#1c2733;--sub:#5b6b7c;--line:#dde4ec;
@@ -15,19 +15,23 @@ html,body{max-width:100%;overflow-x:hidden}
 html{overflow-y:scroll}
 body{margin:0;font-family:"Segoe UI","Noto Sans TC",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
 header{background:var(--acc2);color:#fff;padding:5px 18px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:50}
-.brand{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;background:transparent;border:0;padding:0;color:inherit;font:inherit}
+.logo-mobile{display:none}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+header button:focus-visible{outline-color:#fff}
 .brand .burger{font-size:20px;line-height:1}
 .logo-chip{min-height:34px;background:#fff;color:#0a4f86;border-radius:6px;padding:5px 10px;display:flex;align-items:center;font-weight:750;letter-spacing:.15px;white-space:nowrap}
-nav{display:flex;gap:4px}
-nav button{background:transparent;border:none;color:#cfe3f5;padding:8px 14px;font-size:14px;cursor:pointer;border-radius:6px}
+header nav{display:flex;flex:1;min-width:0;gap:4px;overflow-x:auto;scrollbar-width:thin}
+header nav button{flex:0 0 auto;background:transparent;border:none;color:#cfe3f5;padding:8px 14px;font-size:14px;font-family:inherit;white-space:nowrap;cursor:pointer;border-radius:6px}
+header nav button:hover:not(.active){background:rgba(255,255,255,.15)}
 nav button.active{background:#fff;color:var(--acc2);font-weight:600}
 main{padding:14px 18px;max-width:1500px;margin:0 auto}
-.tab{display:none}.tab.active{display:block}
+.tab{display:none}.tab.active{display:block}.tab:focus{outline:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
 label{display:block;font-size:12.5px;color:var(--sub);margin:8px 0 3px}
 input,select{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;font-size:13.5px;font-family:inherit;background:var(--card);color:var(--ink)}
 input:focus,select:focus{outline:2px solid #bcd8ef;border-color:var(--acc)}
-.row{display:flex;gap:8px}.row>*{flex:1}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
 button.btn{background:var(--acc);color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:13.5px;cursor:pointer;font-weight:600}
 button.btn:hover{background:var(--acc2)}
 button.btn.sec{background:#e8edf3;color:var(--ink);font-weight:500}
@@ -48,7 +52,7 @@ kbd{background:#eef1f5;border:1px solid #ccd4dd;border-bottom-width:2px;border-r
 #anki-card img{max-width:100%;height:auto;border-radius:6px}
 #anki-card hr{border:none;border-top:1px solid var(--line);margin:12px 0}
 #anki-card audio{max-width:100%}
-.menu-dd{position:fixed;top:50px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 34px rgba(0,0,0,.28);min-width:230px;padding:6px;display:none;z-index:200}
+.menu-dd{position:fixed;top:50px;left:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 34px rgba(0,0,0,.28);min-width:230px;max-height:calc(100dvh - 68px);overflow:auto;padding:6px;display:none;z-index:200}
 .menu-dd.open{display:block}
 .menu-item{display:block;width:100%;text-align:left;background:transparent;border:none;padding:9px 12px;font-size:14px;color:var(--ink);border-radius:7px;cursor:pointer}
 .menu-item:hover,.menu-item.active{background:var(--chip)}.menu-item.active{font-weight:600}
@@ -59,25 +63,212 @@ kbd{background:#eef1f5;border:1px solid #ccd4dd;border-bottom-width:2px;border-r
 .gatebox h2{margin:0 0 4px;font-size:17px;color:var(--acc2)}.gatebox .sub{font-size:12.5px;color:var(--sub);margin-bottom:14px}
 body.theme-macaroon{--bg:#faf3e9;--card:#fffdf8;--ink:#3d3128;--sub:#927f6e;--line:#ecdcc7;--acc:#e0873a;--acc2:#c26a1e;--chip:#f6e7d3;--chipink:#a85f1c}
 body.theme-dark{--bg:#0f1720;--card:#1a2632;--ink:#e6edf3;--sub:#a8bccc;--line:#2c3d4d;--acc:#4db1ea;--acc2:#7fc4f0;--chip:#243544;--chipink:#bfe0f7}
-body.theme-dark header{background:#0c141d}body.theme-dark nav button.active{color:#0c3350}body.theme-dark button.btn.sec{background:#243544;color:var(--ink)}body.theme-dark .ecard{background:#1a2632}body.theme-dark .erow.cur{background:#243544}body.theme-dark kbd{background:#243544;color:var(--ink);border-color:#3a4a5a}
+body.theme-dark header{background:#0c141d}body.theme-dark header nav button.active{color:#0c3350}body.theme-dark button.btn.sec{background:#243544;color:var(--ink)}body.theme-dark .ecard{background:#1a2632}body.theme-dark .erow.cur{background:#243544}body.theme-dark kbd{background:#243544;color:var(--ink);border-color:#3a4a5a}
 body.theme-black{--bg:#000;--card:#0b0b0b;--ink:#fff;--sub:#cfcfcf;--line:#333;--acc:#ffd21f;--acc2:#ffd21f;--chip:#1a1a1a;--chipink:#ffd21f}
 body.theme-black header{background:#000;border-bottom:1px solid #333}body.theme-black nav button.active{background:#ffd21f;color:#000}body.theme-black button.btn{color:#000}body.theme-black button.btn.sec{background:#1a1a1a;color:#ffd21f}body.theme-black .ecard{background:#0b0b0b}body.theme-black .erow.cur{background:#1a1a1a}body.theme-black kbd{background:#1a1a1a;color:#ffd21f;border-color:#444}
-@media(max-width:860px){header{padding:8px 10px;gap:8px}.logo-chip{white-space:normal;font-size:12px}header nav{display:flex;flex:1;min-width:0}header nav button{white-space:nowrap;padding:8px 10px}main{padding:12px 10px}.menu-dd{top:58px;left:8px;right:8px;min-width:0}.row{flex-direction:column;gap:6px}.row>*{width:100%}.btnrow{gap:6px}}
+/* Mobile navigation follows the OPH page: current section, bottom bar, all-tabs sheet. */
+.mobile-header-current,.mobile-tabs-trigger,.mobile-bottom-nav,.mobile-tabs-layer{display:none}
+.mobile-tabs-layer[hidden]{display:none!important}
+@media(max-width:860px){
+  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+  header{padding:7px 10px;gap:9px;min-height:54px}
+  #menu-wrap{flex:0 0 auto}
+  .brand{gap:7px}
+  .logo-chip{padding:5px 7px;font-size:12px;min-height:32px}
+  .logo-desktop{display:none}.logo-mobile{display:inline}
+  header nav{display:none}
+  .mobile-header-current{display:flex;flex:1 1 auto;min-width:0;flex-direction:column;line-height:1.15}
+  .mobile-header-current span{font-size:9.5px;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.7)}
+  .mobile-header-current strong{font-size:14px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mobile-tabs-trigger{display:flex;flex:0 0 auto;align-items:center;gap:6px;min-height:38px;border:1px solid rgba(255,255,255,.42);border-radius:9px;background:rgba(255,255,255,.12);color:#fff;padding:7px 9px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer}
+  .mobile-tabs-trigger .grid-icon{font-size:16px;line-height:1}
+  main{padding:12px 10px}
+  .menu-dd{top:58px;left:8px;right:8px;min-width:0;max-height:calc(100dvh - 70px)}
+  .row{flex-direction:column;gap:6px}.row>*{width:100%}.btnrow{gap:6px}
+  .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:190;display:grid;grid-template-columns:repeat(var(--mobile-nav-count,3),minmax(0,1fr));gap:2px;padding:5px 6px calc(5px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -5px 18px rgba(10,34,55,.12)}
+  .mobile-nav-item{min-width:0;min-height:54px;border:0;border-radius:9px;background:transparent;color:var(--sub);padding:5px 2px 4px;font-family:inherit;font-size:10.5px;line-height:1.1;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+  .mobile-nav-item .mobile-nav-icon{font-size:19px;line-height:1.1;filter:grayscale(.18)}
+  .mobile-nav-item.active{background:var(--chip);color:var(--acc);font-weight:700}
+  .mobile-nav-item.active .mobile-nav-icon{filter:none;transform:translateY(-1px)}
+  .mobile-tabs-layer{position:fixed;inset:0;z-index:360}
+  .mobile-tabs-layer.open{display:block}
+  .mobile-tabs-backdrop{position:absolute;inset:0;border:0;background:rgba(8,20,31,.56);width:100%;height:100%;padding:0;cursor:pointer}
+  .mobile-tabs-sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);color:var(--ink);border-radius:20px 20px 0 0;padding:9px 14px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -12px 38px rgba(0,0,0,.26);max-height:82vh;max-height:82dvh;overflow:auto;overscroll-behavior:contain}
+  .mobile-sheet-handle{width:38px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 9px}
+  .mobile-sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .mobile-sheet-head h2{margin:0;font-size:18px;color:var(--ink)}
+  .mobile-sheet-head p{margin:2px 0 0;font-size:11.5px;color:var(--sub)}
+  .mobile-sheet-close{flex:0 0 auto;width:38px;height:38px;border:0;border-radius:50%;background:var(--chip);color:var(--ink);font-size:20px;line-height:1;cursor:pointer}
+  .mobile-tab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .mobile-tab-card{min-width:0;min-height:72px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);padding:9px 5px;font-family:inherit;font-size:11.5px;line-height:1.25;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;overflow-wrap:anywhere;cursor:pointer}
+  .mobile-tab-card .mobile-tab-icon{font-size:23px;line-height:1}
+  .mobile-tab-card.active{border-color:var(--acc);background:var(--chip);color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+  body.mobile-tabs-open{overflow:hidden}
+}
+@media(max-width:360px){.mobile-header-current strong{font-size:13px}.mobile-tabs-trigger{padding:7px}.mobile-tab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+:root{--site-header-height:54px;--directory-toolbar-height:68px}
+html,body{max-width:100%}html{overflow-x:hidden}body{overflow-x:clip}
+.directory-toolbar{position:sticky;top:var(--site-header-height);z-index:40;display:flex;align-items:center;gap:8px;background:var(--bg);padding:8px 0;margin-bottom:10px;box-shadow:0 10px 14px -14px rgba(0,0,0,.25)}
+.directory-search-field{display:flex;flex:1;min-width:0;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:0 10px;min-height:42px}
+.directory-search-field:focus-within{outline:2px solid #bcd8ef;border-color:var(--acc)}
+.directory-search-icon{color:var(--sub);font-size:23px;line-height:1}
+#directory-search{min-width:0;flex:1;border:0;outline:none;background:transparent;padding:8px 0;font-size:16px;box-shadow:none}
+#directory-search::-webkit-search-cancel-button{display:none}
+.directory-clear{flex:0 0 auto;border:0;background:transparent;color:var(--sub);font-size:22px;width:30px;height:34px;padding:0;cursor:pointer}
+.directory-clear[hidden]{display:none}
+.directory-quick-trigger{flex:0 0 auto;display:flex;align-items:center;gap:6px;min-height:42px;border:2px solid #e23939;border-radius:8px;padding:8px 12px;background:var(--card);color:#d92d2d;font-family:inherit;font-size:14px;font-weight:700;line-height:1.2;cursor:pointer}
+.directory-quick-trigger:hover{background:#fff0f0}
+.directory-intro{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.directory-title{margin:0;font-size:21px;color:var(--acc2)}
+.directory-status{margin:0;font-size:12.5px;color:var(--sub)}
+.directory-sections{max-width:1200px;margin:0 auto}
+.directory-section{margin:0 0 8px;border:1px solid var(--line);border-left:4px solid var(--directory-accent);border-radius:9px;scroll-margin-top:calc(var(--site-header-height) + var(--directory-toolbar-height) + 12px)}
+.directory-section[hidden],.directory-group[hidden],.directory-contact[hidden],.directory-note[hidden]{display:none!important}
+.directory-section-summary{display:flex;align-items:center;gap:10px;list-style:none;min-height:44px;padding:10px 12px;background:var(--directory-tint);border-radius:7px;cursor:pointer}
+.directory-section-summary::-webkit-details-marker{display:none}
+.directory-section-summary h2{margin:0;flex:1;min-width:0;font-size:15px;line-height:1.4;color:var(--ink)}
+.directory-section-summary::after{content:'⌄';font-size:19px;line-height:1;color:var(--directory-accent)}
+.directory-section[open]>.directory-section-summary{border-bottom:1px solid var(--line);border-radius:7px 7px 0 0}
+.directory-section[open]>.directory-section-summary::after{transform:rotate(180deg)}
+.directory-section-summary:focus-visible{outline:3px solid var(--acc);outline-offset:-3px}
+.directory-section-body{padding:10px}
+.directory-section-count{color:var(--sub);font-size:12px;white-space:nowrap}
+.directory-description{margin:0 1px 8px;color:var(--sub);font-size:12px}
+.directory-group{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px;margin-bottom:8px}
+.directory-group:last-child{margin-bottom:0}
+.directory-group h3{margin:0 0 8px;padding-left:7px;border-left:3px solid var(--directory-accent);font-size:13px;color:var(--ink);font-weight:650}
+.directory-group.has-summary{padding:0;border-left:3px solid var(--directory-accent)}
+.directory-group-summary{display:flex;align-items:center;gap:8px;list-style:none;min-height:36px;padding:7px 9px;border-radius:6px;background:var(--directory-tint);cursor:pointer}
+.directory-group-summary::-webkit-details-marker{display:none}
+.directory-group-summary h3{flex:1;min-width:0;margin:0;padding:0;border:0;font-size:13px}
+.directory-group-summary span{font-size:11px;color:var(--sub)}
+.directory-group-summary::after{content:'⌄';font-size:16px;line-height:1;color:var(--directory-accent)}
+.directory-group[open]>.directory-group-summary::after{transform:rotate(180deg)}
+.directory-group-summary:focus-visible{outline:3px solid var(--acc);outline-offset:-3px}
+.directory-group.has-summary>.directory-group-body{padding:8px}
+.directory-contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));gap:7px;align-items:start}
+.directory-contact{min-width:0;display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:8px}
+.directory-contact h4{margin:0;font-size:13px;line-height:1.4;font-weight:650;overflow-wrap:anywhere}
+.directory-phone-buttons{display:flex;flex-wrap:wrap;gap:5px}
+.directory-call{display:inline-flex;align-items:center;justify-content:center;gap:4px;max-width:100%;min-height:34px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--acc);text-decoration:none;font-size:12px;font-weight:650;font-variant-numeric:tabular-nums}
+.directory-call-number{min-width:0;overflow-wrap:anywhere}
+.directory-call:hover{background:var(--chip);border-color:var(--acc)}
+.directory-call:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.directory-call-icon{font-size:12px;line-height:1}
+.directory-missing{margin:0;color:var(--sub);font-size:12px}
+.directory-notes{margin:8px 0 0;border-top:1px solid var(--line);padding-top:6px}
+.directory-note{margin:5px 0;font-size:12.5px;line-height:1.5;color:var(--sub);overflow-wrap:anywhere}
+.directory-note strong{color:var(--ink);font-weight:600}
+.directory-empty{padding:36px 18px;text-align:center;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:12px}
+.directory-empty[hidden]{display:none}
+.directory-jump-dialog{position:fixed;inset:auto 0 0;margin:0;width:100%;max-width:none;max-height:82vh;max-height:82dvh;overflow:auto;overscroll-behavior:contain;border:0;border-radius:20px 20px 0 0;padding:10px 16px calc(20px + env(safe-area-inset-bottom));background:var(--card);color:var(--ink);box-shadow:0 -12px 38px rgba(0,0,0,.26)}
+.directory-jump-dialog::backdrop{background:rgba(8,20,31,.56)}
+.directory-jump-handle{width:38px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 12px}
+.directory-jump-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.directory-jump-head h2{margin:0;font-size:18px}
+.directory-jump-head p{margin:4px 0 0;color:var(--sub);font-size:12px}
+.directory-jump-back{flex:0 0 auto;border:1px solid var(--line);border-radius:6px;background:var(--chip);color:var(--acc);font-family:inherit;font-size:12px;font-weight:600;min-height:32px;padding:5px 8px;cursor:pointer}
+.directory-jump-back[hidden]{display:none}
+.directory-jump-close{flex:0 0 auto;width:38px;height:38px;border:0;border-radius:50%;background:var(--chip);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+.directory-jump-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.directory-jump-button{min-width:0;min-height:54px;padding:8px 6px;border:1px solid var(--line);border-top:3px solid var(--directory-accent);border-radius:8px;background:var(--card);color:var(--ink);font-family:inherit;font-size:13px;font-weight:600;line-height:1.4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;overflow-wrap:anywhere}
+.directory-jump-button:hover{background:var(--chip);border-color:var(--acc);color:var(--acc)}
+.directory-jump-button small{font-size:11px;color:var(--sub);font-weight:400}
+body.directory-jump-open{overflow:hidden}
+@media(min-width:861px){.directory-jump-dialog{left:50%;right:auto;bottom:24px;transform:translateX(-50%);width:min(680px,calc(100% - 40px));border-radius:16px;padding:20px}.directory-jump-handle{display:none}}
+@media(max-width:860px){.directory-toolbar{gap:7px}.directory-quick-trigger{padding:8px 9px;font-size:12.5px;gap:5px}.directory-search-field{padding:0 9px;gap:6px}.directory-intro{gap:6px}.directory-section-body{padding:8px}.directory-group{padding:8px}.directory-contact-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.directory-contact{padding:7px}.directory-contact h4{font-size:12.5px}.directory-call{padding:6px;font-size:11.5px;min-height:34px}.directory-jump-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.directory-section{scroll-behavior:auto}}
+
+/* Category accents are shared by section headers and their shortcuts. */
+[data-directory-tone="red"]{--directory-accent:#b43c46;--directory-tint:#fff0f1}
+[data-directory-tone="violet"]{--directory-accent:#7652aa;--directory-tint:#f5f0fd}
+[data-directory-tone="slate"]{--directory-accent:#526477;--directory-tint:#f0f3f6}
+[data-directory-tone="amber"]{--directory-accent:#9b6b12;--directory-tint:#fff6e4}
+[data-directory-tone="blue"]{--directory-accent:#2873a7;--directory-tint:#edf6ff}
+[data-directory-tone="teal"]{--directory-accent:#197b74;--directory-tint:#eaf8f4}
+[data-directory-tone="indigo"]{--directory-accent:#5963af;--directory-tint:#f1f2fe}
+[data-directory-tone="green"]{--directory-accent:#348053;--directory-tint:#edf8f0}
+[data-directory-tone="rose"]{--directory-accent:#ac507f;--directory-tint:#fff0f7}
+body.theme-dark [data-directory-tone]{--directory-tint:#202f3d}
+body.theme-black [data-directory-tone]{--directory-tint:#121212}
+body.theme-dark .directory-search-field,body.theme-black .directory-search-field{background:#fff;border-color:#cbd5e1}
+body.theme-dark #directory-search,body.theme-black #directory-search{color:#1c2733;caret-color:#1c2733}
+body.theme-dark .directory-search-icon,body.theme-black .directory-search-icon,body.theme-dark .directory-clear,body.theme-black .directory-clear{color:#5b6b7c}
+body.theme-dark .directory-quick-trigger,body.theme-black .directory-quick-trigger{color:#ff6464;border-color:#ff5252}
+body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick-trigger:hover{background:#351c23}
+.directory-history{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.directory-history-panel{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px}
+.directory-history-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.directory-history-head h2{margin:0;font-size:13px;color:var(--sub);font-weight:600}
+.directory-history-clear{border:0;background:transparent;color:var(--sub);font-family:inherit;font-size:11px;padding:2px 0;cursor:pointer}
+.directory-history-clear[hidden]{display:none}
+.directory-history-empty{margin:0;color:var(--sub);font-size:12px}
+.directory-recent-searches{display:flex;flex-wrap:wrap;gap:5px}
+.directory-recent-search{min-height:30px;max-width:100%;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:var(--chip);color:var(--chipink);font-family:inherit;font-size:12px;cursor:pointer;overflow-wrap:anywhere}
+.directory-recent-calls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:6px}
+.directory-recent-call{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:7px 8px}
+.directory-recent-call strong{font-size:12px;line-height:1.3;white-space:normal;overflow-wrap:anywhere;color:var(--ink)}
+.directory-recent-call small{font-size:10px;line-height:1.2;color:var(--sub);font-weight:400}
+@media(max-width:860px){.directory-history{grid-template-columns:1fr;gap:7px;margin-bottom:10px}.directory-history-panel{padding:8px}.directory-history-head{margin-bottom:5px}.directory-recent-searches{flex-wrap:nowrap;overflow-x:auto}.directory-recent-search{flex:0 0 auto;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}.directory-recent-calls{display:flex;overflow-x:auto;padding-bottom:2px}.directory-recent-call{flex:0 0 150px;max-width:150px}}
 </style>
 </head>
 <body>
 <header>
   <div id="menu-wrap" style="position:relative">
-    <div class="brand" onclick="toggleMenu(event)" aria-label="Open site menu" role="button" tabindex="0">
-      <span class="burger">☰</span>
-      <span class="logo-chip">CGMH Emergency Department</span>
-    </div>
+    <button class="brand" id="site-menu-trigger" type="button" onclick="toggleMenu(event)" aria-label="Open CGMH Emergency Department menu" aria-controls="menu-dd" aria-expanded="false">
+      <span class="burger" aria-hidden="true">☰</span>
+      <span class="logo-chip"><span class="logo-desktop">CGMH Emergency Department</span><span class="logo-mobile">CGMH ER</span></span>
+    </button>
   </div>
-  <nav aria-label="Primary navigation"><button class="active" data-tab="anki">🃏 ER Study</button></nav>
+  <nav id="primary-nav" aria-label="Primary navigation"></nav>
+  <div class="mobile-header-current" aria-live="polite">
+    <span>Current section</span>
+    <strong id="mobile-current-title">Directory</strong>
+  </div>
+  <button class="mobile-tabs-trigger" id="mobile-tabs-trigger" type="button" onclick="openMobileTabs()" aria-controls="mobile-tabs-layer" aria-expanded="false">
+    <span class="grid-icon" aria-hidden="true">▦</span><span>All tabs</span>
+  </button>
 </header>
 <div id="menu-dd" class="menu-dd"></div>
+<nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Main sections"></nav>
+<div class="mobile-tabs-layer" id="mobile-tabs-layer" hidden>
+  <button class="mobile-tabs-backdrop" type="button" onclick="closeMobileTabs()" aria-label="Close all tabs" tabindex="-1"></button>
+  <section class="mobile-tabs-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-tabs-title">
+    <div class="mobile-sheet-handle" aria-hidden="true"></div>
+    <div class="mobile-sheet-head">
+      <div><h2 id="mobile-tabs-title">All sections</h2><p>Choose where you want to go</p></div>
+      <button class="mobile-sheet-close" type="button" onclick="closeMobileTabs()" aria-label="Close">×</button>
+    </div>
+    <div class="mobile-tab-grid" id="mobile-tab-grid"></div>
+  </section>
+</div>
 <main>
-  <div class="tab active locked" id="tab-anki">
+  <section class="tab active" id="tab-directory" tabindex="-1" aria-labelledby="directory-title" lang="zh-Hant">
+    <div class="directory-toolbar" id="directory-toolbar" role="search" aria-label="電話簿搜尋">
+      <div class="directory-search-field">
+        <span class="directory-search-icon" aria-hidden="true">⌕</span>
+        <input id="directory-search" type="search" aria-label="搜尋姓名、單位或電話" autocomplete="off" spellcheck="false">
+        <button class="directory-clear" id="directory-clear" type="button" aria-label="清除搜尋" hidden>×</button>
+      </div>
+      <button class="directory-quick-trigger" id="directory-quick-trigger" type="button" aria-controls="directory-jump-dialog" aria-haspopup="dialog" aria-expanded="false"><span aria-hidden="true">▦</span><span>快速轉跳</span></button>
+    </div>
+    <div class="directory-sections">
+      <div class="directory-intro"><h1 class="directory-title" id="directory-title">☎️ Directory</h1><p class="directory-status" id="directory-status" role="status" aria-live="polite"></p></div>
+      <div class="directory-history" id="directory-history">
+        <section class="directory-history-panel" aria-labelledby="directory-recent-search-title">
+          <div class="directory-history-head"><h2 id="directory-recent-search-title">最近搜尋</h2><button type="button" class="directory-history-clear" data-directory-history-clear="searches" aria-label="清除最近搜尋" hidden>清除</button></div>
+          <div class="directory-recent-searches" id="directory-recent-searches"></div>
+        </section>
+        <section class="directory-history-panel" aria-labelledby="directory-recent-call-title">
+          <div class="directory-history-head"><h2 id="directory-recent-call-title">最近點選</h2><button type="button" class="directory-history-clear" data-directory-history-clear="calls" aria-label="清除最近點選" hidden>清除</button></div>
+          <div class="directory-recent-calls" id="directory-recent-calls"></div>
+        </section>
+      </div>
+      <div id="directory-sections"></div>
+      <p class="directory-empty" id="directory-empty" hidden>找不到符合的聯絡資料，請試試其他姓名或電話片段。</p>
+    </div>
+  </section>
+  <div class="tab locked" id="tab-anki" tabindex="-1" aria-label="ER Study">
     <div class="gate" id="gate-anki">
       <div class="gatebox">
         <h2>🔒 ER Study</h2>
@@ -122,8 +313,219 @@ body.theme-black header{background:#000;border-bottom:1px solid #333}body.theme-
     </div>
   </div>
 </main>
+<dialog class="directory-jump-dialog" id="directory-jump-dialog" aria-labelledby="directory-jump-title" lang="zh-Hant">
+  <div class="directory-jump-handle" aria-hidden="true"></div>
+  <div class="directory-jump-head"><button class="directory-jump-back" id="directory-jump-back" type="button" aria-label="返回所有分類" hidden>‹ 分類</button><div><h2 id="directory-jump-title">快速轉跳</h2><p>選擇分類，跳至電話清單</p></div><button class="directory-jump-close" type="button" onclick="closeDirectoryJump()" aria-label="關閉">×</button></div>
+  <div class="directory-jump-grid" id="directory-jump-grid"></div>
+</dialog>
 <script>
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+var DIRECTORY_DATA={"transfers":["24032143","24032144","24032145","24032146","24032147","24032148","24032149","24032150","24032151","24032152","24032153","24032154"],"sections":[{"id":"directory-section-0","name":"急診","description":"","groups":[{"name":"常用單位","contacts":[{"id":"directory-contact-0-4","name":"ER Xray","numbers":["24032583"]},{"id":"directory-contact-0-5","name":"ER CT","numbers":["24032568"]},{"id":"directory-contact-0-6","name":"ER MRI","numbers":["24038398"]},{"id":"directory-contact-0-7","name":"ER藥局","numbers":["24032675"]},{"id":"directory-contact-0-8","name":"剃 頭","numbers":["24033174","280126"]},{"id":"directory-contact-0-9","name":"警衛室","numbers":["24033509","#391"]},{"id":"directory-contact-0-10","name":"RT","numbers":["24032640","261259","261260"]},{"id":"directory-contact-0-12","name":"庶務員","numbers":["#368"]},{"id":"directory-contact-0-13","name":"助理員(內場)L","numbers":["#359","268948"]},{"id":"directory-contact-0-14","name":"外圍助理員","numbers":["268949","268954","235724"]},{"id":"directory-contact-0-15","name":"困難插管","numbers":["266599"]},{"id":"directory-contact-0-17","name":"隨 車","numbers":["68984"]},{"id":"directory-contact-0-18","name":"批價櫃檯","numbers":["24033199"]},{"id":"directory-contact-0-19","name":"住院櫃檯","numbers":["#393"]},{"id":"directory-contact-0-21","name":"急診社服 (白班)","numbers":["24033281","24033284"]},{"id":"directory-contact-0-22","name":"林美玲","numbers":["269142"]},{"id":"directory-contact-0-23","name":"林孟潔","numbers":["252846"]},{"id":"directory-contact-0-24","name":"謝書豪","numbers":["252864"]},{"id":"directory-contact-0-25","name":"性侵家暴 (夜班)","numbers":["268019"]},{"id":"directory-contact-0-26","name":"器捐 (夜班)","numbers":["268020","268023"]},{"id":"directory-contact-0-27","name":"轉 介","numbers":["24032824","267031"]},{"id":"directory-contact-0-28","name":"急診=安寧共照","numbers":["24035181","266071"]},{"id":"directory-contact-0-29","name":"諮詢藥師","numbers":["24038301","24032698"]}],"notes":[],"id":"directory-section-0-group-0","tone":"red"},{"name":"ER醫師","contacts":[{"id":"directory-contact-0-32","name":"方成傑 (A145)","numbers":["216341"]},{"id":"directory-contact-0-33","name":"尤承恩 (R067)","numbers":["217955"]},{"id":"directory-contact-0-34","name":"王鈞民 (R066)","numbers":["217952"]},{"id":"directory-contact-0-35","name":"王健宇 (Q515)","numbers":["235607"]},{"id":"directory-contact-0-36","name":"王思驊 (R003)","numbers":["216754"]},{"id":"directory-contact-0-37","name":"林聖敏 (A139)","numbers":["216357"]},{"id":"directory-contact-0-38","name":"林祖薇 (Q775)","numbers":["215358"]},{"id":"directory-contact-0-39","name":"林昱廷 (Q759)","numbers":["215192"]},{"id":"directory-contact-0-40","name":"陳祈漢 (Q495)","numbers":["253778"]},{"id":"directory-contact-0-41","name":"黃羽旋 (Q282)","numbers":["289571"]},{"id":"directory-contact-0-42","name":"吳俐瑩 (A057)","numbers":["267026"]},{"id":"directory-contact-0-43","name":"吳伊婷 (Q866)","numbers":["215775"]},{"id":"directory-contact-0-44","name":"張亦鑫 (Q513)","numbers":["235257"]},{"id":"directory-contact-0-45","name":"張鈞茹 (A054)","numbers":["267030"]},{"id":"directory-contact-0-46","name":"張修華 (Q710)","numbers":["235363"]},{"id":"directory-contact-0-47","name":"李孟潔 (Q977)","numbers":["215982"]},{"id":"directory-contact-0-48","name":"葉漢威 (Q780)","numbers":["215378"]},{"id":"directory-contact-0-49","name":"廖舒翎 (R018)","numbers":["253785"]},{"id":"directory-contact-0-50","name":"蕭舒庭 (Q929)","numbers":["253815"]},{"id":"directory-contact-0-51","name":"歐陽欣如 (Q105)","numbers":["216362"]},{"id":"directory-contact-0-52","name":"呂思緯","numbers":["260829"]},{"id":"directory-contact-0-53","name":"呂惟","numbers":["289083"]},{"id":"directory-contact-0-54","name":"林俞任","numbers":["239129"]},{"id":"directory-contact-0-55","name":"黃翊晴","numbers":["253674"]},{"id":"directory-contact-0-56","name":"張群","numbers":["239310"]},{"id":"directory-contact-0-57","name":"高瑞蕃 (Q516)","numbers":["235646"]},{"id":"directory-contact-0-58","name":"林敬皿 (Q002)","numbers":["289182"]},{"id":"directory-contact-0-59","name":"張簡上俊 (Q043)","numbers":["289229"]},{"id":"directory-contact-0-60","name":"李怡緻 (Q615)","numbers":["213932"]},{"id":"directory-contact-0-61","name":"謝鎔 (Q017)","numbers":["289199"]},{"id":"directory-contact-0-62","name":"許邦定","numbers":["289153"]},{"id":"directory-contact-0-63","name":"蔡適謙","numbers":["289296"]},{"id":"directory-contact-0-64","name":"吳宜憲","numbers":["253750"]},{"id":"directory-contact-0-65","name":"吳穎欣","numbers":["289310"]}],"notes":[],"id":"directory-section-0-group-1","tone":"blue"},{"name":"ER專科護理師","contacts":[{"id":"directory-contact-0-68","name":"王菀萍","numbers":["267752"]},{"id":"directory-contact-0-69","name":"張玉梅","numbers":["267754"]},{"id":"directory-contact-0-70","name":"林素真","numbers":["267755"]},{"id":"directory-contact-0-71","name":"黃雅莉","numbers":["267767"]},{"id":"directory-contact-0-72","name":"陳莉樺","numbers":["267762"]},{"id":"directory-contact-0-73","name":"呂秀芬","numbers":["267757"]},{"id":"directory-contact-0-74","name":"黎美鳳","numbers":["267763"]},{"id":"directory-contact-0-75","name":"謝慧澐","numbers":["267764"]},{"id":"directory-contact-0-76","name":"李雅純","numbers":["267759"]},{"id":"directory-contact-0-77","name":"楊淑君","numbers":["267765"]},{"id":"directory-contact-0-78","name":"李素玉","numbers":["267758"]},{"id":"directory-contact-0-79","name":"洪純純","numbers":["267756"]},{"id":"directory-contact-0-80","name":"郭瑞珠","numbers":["266650"]},{"id":"directory-contact-0-81","name":"翁如瑩","numbers":["268314"]},{"id":"directory-contact-0-82","name":"張采靖","numbers":["269040"]},{"id":"directory-contact-0-83","name":"游心怡","numbers":["266324"]},{"id":"directory-contact-0-84","name":"簡家榆","numbers":["266081"]},{"id":"directory-contact-0-85","name":"葉雅琪","numbers":["266339"]},{"id":"directory-contact-0-86","name":"馮誼瑄","numbers":["266191"]},{"id":"directory-contact-0-87","name":"陳家珍","numbers":["262706"]},{"id":"directory-contact-0-88","name":"李靜怡","numbers":["261316"]},{"id":"directory-contact-0-89","name":"李睿軒","numbers":["235194"]},{"id":"directory-contact-0-90","name":"廖維萍","numbers":["235264"]},{"id":"directory-contact-0-91","name":"蘇淑櫻","numbers":["235210"]},{"id":"directory-contact-0-92","name":"劉謦瑜","numbers":["235312"]},{"id":"directory-contact-0-93","name":"林尹評","numbers":["235300"]},{"id":"directory-contact-0-94","name":"賴姿羽","numbers":["235303"]},{"id":"directory-contact-0-95","name":"陳亭伊","numbers":["235318"]},{"id":"directory-contact-0-96","name":"盧政諺","numbers":["239088"]},{"id":"directory-contact-0-97","name":"曾聖倫","numbers":["235746"]},{"id":"directory-contact-0-98","name":"劉恬甜","numbers":["235917"]},{"id":"directory-contact-0-99","name":"邱凱莉","numbers":["235891"]},{"id":"directory-contact-0-100","name":"蕭尤雅","numbers":["235581"]},{"id":"directory-contact-0-101","name":"薛詠馨","numbers":["289211"]},{"id":"directory-contact-0-102","name":"彭馨儀","numbers":["235172"]}],"notes":[],"id":"directory-section-0-group-2","tone":"teal"},{"name":"餐飲與庶務","contacts":[{"id":"directory-contact-0-104","name":"福利課訂餐","numbers":["24033166","24033169"]},{"id":"directory-contact-0-110","name":"3.9觀換窗簾 (平日17:00前)","numbers":["266023"]},{"id":"directory-contact-0-111","name":"換窗簾 (平日17:00前)","numbers":["261255"]},{"id":"directory-contact-0-112","name":"換窗簾","numbers":["24033470"]}],"notes":[{"name":"訂餐時間","text":""},{"name":"電腦訂餐","text":"早04:50前、中09:20前、晚14:50前"},{"name":"電話加訂","text":"早06:50前、中11:20前、晚16:50前"},{"name":"電話通知特殊餐(不豬肉、素食、全粥)","text":"早06:30前、中11:00前、晚16:10前"}],"id":"directory-section-0-group-3","tone":"amber"},{"name":"觀察室","contacts":[{"id":"directory-contact-0-114","name":"第一觀察室","numbers":["#311","#312"]},{"id":"directory-contact-0-115","name":"第二觀察室 (前)","numbers":["#323"]},{"id":"directory-contact-0-116","name":"第二觀察室 (後)","numbers":["#321"]},{"id":"directory-contact-0-117","name":"第三觀察室 (前)","numbers":["#332"]},{"id":"directory-contact-0-118","name":"第三觀察室 (後)","numbers":["24033527"]},{"id":"directory-contact-0-119","name":"第九觀察室","numbers":["24033526"]},{"id":"directory-contact-0-120","name":"第五觀察室","numbers":["#336"]},{"id":"directory-contact-0-121","name":"第六觀察室 (前)","numbers":["#381"]},{"id":"directory-contact-0-122","name":"第六觀察室 (後)","numbers":["#382"]},{"id":"directory-contact-0-123","name":"第七八觀察室 (L07)","numbers":["#385"]},{"id":"directory-contact-0-124","name":"第七八觀察室 (L08)","numbers":["#386"]},{"id":"directory-contact-0-125","name":"第10觀察室","numbers":["#343"]},{"id":"directory-contact-0-126","name":"第12觀察室","numbers":["#322","24033528"]},{"id":"directory-contact-0-127","name":"注射室","numbers":["#325"]}],"notes":[],"id":"directory-section-0-group-4","tone":"violet"},{"name":"急診治療一區 (內科)","contacts":[{"id":"directory-contact-0-131","name":"一區小組長","numbers":["268945"]},{"id":"directory-contact-0-133","name":"內檢傷","numbers":["#366"]},{"id":"directory-contact-0-134","name":"MB","numbers":["#363"]},{"id":"directory-contact-0-135","name":"MC","numbers":["#365"]},{"id":"directory-contact-0-136","name":"MD","numbers":["#266"]},{"id":"directory-contact-0-137","name":"NP","numbers":["#362"]},{"id":"directory-contact-0-138","name":"A2-CPR","numbers":["#367"]},{"id":"directory-contact-0-139","name":"新急救區","numbers":["#377"]}],"notes":[],"id":"directory-section-0-group-5","tone":"indigo"},{"name":"急診治療二區","contacts":[{"id":"directory-contact-0-142","name":"二區小組長","numbers":["269004"]},{"id":"directory-contact-0-143","name":"一診 (診間)","numbers":["#303","24032776"]},{"id":"directory-contact-0-144","name":"一診 (處置)","numbers":["#265"]},{"id":"directory-contact-0-145","name":"二診 (診間)","numbers":["#302","24032777"]},{"id":"directory-contact-0-146","name":"二診 (處置)","numbers":["#264"]},{"id":"directory-contact-0-147","name":"三診 (診間)","numbers":["#301","24032778"]},{"id":"directory-contact-0-148","name":"三診 (處置)","numbers":["#341"]},{"id":"directory-contact-0-149","name":"二區護理站","numbers":["#341","#343"]},{"id":"directory-contact-0-150","name":"十 觀","numbers":["#341"]},{"id":"directory-contact-0-151","name":"ECHO","numbers":["#304"]},{"id":"directory-contact-0-152","name":"婦 科 室","numbers":["#309"]},{"id":"directory-contact-0-153","name":"眼 科","numbers":["#306"]},{"id":"directory-contact-0-154","name":"負 壓 前 室","numbers":["#277"]}],"notes":[],"id":"directory-section-0-group-6","tone":"green"},{"name":"急診治療三區 (外科)","contacts":[{"id":"directory-contact-0-157","name":"三區小組長","numbers":["268947"]},{"id":"directory-contact-0-158","name":"SA","numbers":["#353"]},{"id":"directory-contact-0-159","name":"SB","numbers":["#352"]},{"id":"directory-contact-0-160","name":"SC-CPR","numbers":["#356"]},{"id":"directory-contact-0-161","name":"急診OR","numbers":["#357"]},{"id":"directory-contact-0-162","name":"急診RT","numbers":["#351"]},{"id":"directory-contact-0-163","name":"急診兒科一診","numbers":["#371"]},{"id":"directory-contact-0-164","name":"急診諮商二診","numbers":["#372"]},{"id":"directory-contact-0-165","name":"急診兒科三診","numbers":["#376"]},{"id":"directory-contact-0-166","name":"急診治療+CPR","numbers":["#373"]},{"id":"directory-contact-0-167","name":"急診OBN","numbers":["#375"]}],"notes":[],"id":"directory-section-0-group-7","tone":"rose"}],"tone":"red"},{"id":"directory-section-1","name":"ICU","description":"加護病房","groups":[{"name":"","contacts":[{"id":"directory-contact-1-2","name":"MICU1 內科 床號:2H- 2301~2322","numbers":["24033825","24033826"]},{"id":"directory-contact-1-3","name":"MICU2 急診 床號:2E- 2101~2116","numbers":["24032310","24032311"]},{"id":"directory-contact-1-4","name":"MICU3 床號:10B- 1001~1013","numbers":["24032300","24032301"]},{"id":"directory-contact-1-5","name":"MICU5 床號:10B- 1015~1040","numbers":["24032977","24032978"]},{"id":"directory-contact-1-6","name":"MICU6 (ACU) 床號:8D- 801~818","numbers":["24032931","24032932"]},{"id":"directory-contact-1-7","name":"GSICU1 外科 床號:6D- 601~611","numbers":["24032891","24032892"]},{"id":"directory-contact-1-8","name":"GSICU2 床號:2F- 2001~2020","numbers":["24032940","24032941"]},{"id":"directory-contact-1-9","name":"GSICU5 床號:5B- 501~522","numbers":["24032877","24032878"]},{"id":"directory-contact-1-10","name":"RCC呼吸照護 床號:11D- 1101~1115","numbers":["24032992","24032993"]},{"id":"directory-contact-1-11","name":"CCU心內 床號:2E- 2501~2516","numbers":["24032315","24032316"]},{"id":"directory-contact-1-12","name":"燙傷BURN普通 床號:2A- 2211~2220","numbers":["24032159","24032160","24032161","24032162"]},{"id":"directory-contact-1-13","name":"燙傷BURN ICU床號:2A- 2201~2233","numbers":["24032159","24032160","24032161","24032162"]},{"id":"directory-contact-1-14","name":"TXICU肝移植 床號:2A- 2901~2911","numbers":["24032305","24032306"]},{"id":"directory-contact-1-15","name":"NSICU1 神外 床號:2A- 2601~2620","numbers":["24032320","24032321"]},{"id":"directory-contact-1-16","name":"NSICU2 神外 床號:9H- 927~939","numbers":["24033895"]},{"id":"directory-contact-1-17","name":"NMICU神內 床號:9H- 941~956","numbers":["24033897","24033898"]},{"id":"directory-contact-1-18","name":"CVSICU1 心外 床號:2A- 2801~2809","numbers":["24032342","24032343"]},{"id":"directory-contact-1-19","name":"CVSICU1 心外 床號:2A- 2810~2816","numbers":["24032331","24032332"]},{"id":"directory-contact-1-20","name":"CVSICU2 心外 床號:2A- 2721~2729","numbers":["24032333","24032334"]}],"notes":[],"id":"directory-section-1-group-0","tone":"violet"}],"tone":"violet"},{"id":"directory-section-2","name":"MISC","description":"","groups":[{"name":"","contacts":[{"id":"directory-contact-2-1","name":"電腦處","numbers":["24032048","24032050"]},{"id":"directory-contact-2-2","name":"電梯課","numbers":["24037301","24037302"]},{"id":"directory-contact-2-3","name":"資材課","numbers":["24033442","24033444"]},{"id":"directory-contact-2-4","name":"考勤課","numbers":["24033420","24033422"]},{"id":"directory-contact-2-5","name":"CSR","numbers":["24033460","24033461"]},{"id":"directory-contact-2-6","name":"TC","numbers":["24032807","24032808"]},{"id":"directory-contact-2-7","name":"儀器課","numbers":["24033068"]},{"id":"directory-contact-2-8","name":"眼:唐'r","numbers":["267930"]},{"id":"directory-contact-2-9","name":"婦超:陳'r","numbers":["267940"]},{"id":"directory-contact-2-10","name":"工務課","numbers":["24033000"]},{"id":"directory-contact-2-11","name":"電動床請修","numbers":["24033035","24037217"]},{"id":"directory-contact-2-12","name":"空調","numbers":["261277"]},{"id":"directory-contact-2-13","name":"78冷氣:普'r","numbers":["268335"]},{"id":"directory-contact-2-14","name":"環管課","numbers":["24033431"]},{"id":"directory-contact-2-15","name":"捕鼠/蚊蟲","numbers":["235472"]},{"id":"directory-contact-2-16","name":"病歷室","numbers":["24033150","24033152"]},{"id":"directory-contact-2-17","name":"病服員派工","numbers":["24032806"]},{"id":"directory-contact-2-18","name":"肝病中心","numbers":["24032229","24032269"]},{"id":"directory-contact-2-19","name":"剃 頭","numbers":["24033174","280126"]},{"id":"directory-contact-2-20","name":"5H支架室","numbers":["24033853"]},{"id":"directory-contact-2-21","name":"外片上傳","numbers":["24032570"]},{"id":"directory-contact-2-22","name":"毒物科","numbers":["24037840"]},{"id":"directory-contact-2-23","name":"榮總毒物中心","numbers":["(02)28757525"]}],"notes":[],"id":"directory-section-2-group-0","tone":"slate"}],"tone":"slate"},{"id":"directory-section-3","name":"感控","description":"感 控","groups":[{"name":"","contacts":[{"id":"directory-contact-3-3","name":"全院: 一般感控問題","numbers":["24032040","252955"]},{"id":"directory-contact-3-4","name":"ER白 傳染病通報","numbers":["24033521"]},{"id":"directory-contact-3-5","name":"ER夜/假 傳染病通報","numbers":["265532"]}],"notes":[{"name":"辦公室代表號","text":"一般感控問題"}],"id":"directory-section-3-group-0","tone":"amber"}],"tone":"amber"},{"id":"directory-section-4","name":"ECMO","description":"","groups":[{"name":"","contacts":[{"id":"directory-contact-4-2","name":"陳保助","numbers":["267203"]},{"id":"directory-contact-4-3","name":"姜義斌","numbers":["267204"]},{"id":"directory-contact-4-4","name":"黃佑傑","numbers":["267202"]},{"id":"directory-contact-4-5","name":"謝宏明","numbers":["267205"]},{"id":"directory-contact-4-6","name":"劉冠義","numbers":["267744"]}],"notes":[],"id":"directory-section-4-group-0","tone":"violet"}],"tone":"violet"},{"id":"directory-section-5","name":"檢查","description":"","groups":[{"name":"影像檢查","contacts":[{"id":"directory-contact-5-2","name":"急診區Xray","numbers":["24032583"]},{"id":"directory-contact-5-3","name":"急診區CT","numbers":["24032568"]},{"id":"directory-contact-5-4","name":"急診區MRI","numbers":["24038398"]},{"id":"directory-contact-5-5","name":"病理Xray","numbers":["24032585"]},{"id":"directory-contact-5-6","name":"復健 2F Xray, CT","numbers":["24033794"]},{"id":"directory-contact-5-7","name":"復健 2F CT","numbers":["24033789"]},{"id":"directory-contact-5-8","name":"復健 2F Angio四檢","numbers":["24033792"]}],"notes":[],"id":"directory-section-5-group-0","tone":"blue"},{"name":"心導管與血管檢查","contacts":[{"id":"directory-contact-5-9","name":"醫1F CV心導管","numbers":["24032585"]},{"id":"directory-contact-5-10","name":"Angio 22-24","numbers":["24032380#322","24032380#323","24032380#324"]},{"id":"directory-contact-5-11","name":"一組(1.2間)","numbers":["24032349","24032328"]},{"id":"directory-contact-5-12","name":"二組(3.4間)","numbers":["24032352","24032354"]},{"id":"directory-contact-5-13","name":"磁導航-第五檢查室","numbers":["24032372"]}],"notes":[],"id":"directory-section-5-group-1","tone":"blue"},{"name":"醫1F Dopplar血流","contacts":[{"id":"directory-contact-5-15","name":"一科 / 二科","numbers":["24032366","24032443"]}],"notes":[],"id":"directory-section-5-group-2","tone":"blue"},{"name":"醫1F Holter動態心電圖","contacts":[{"id":"directory-contact-5-17","name":"一科","numbers":["24032357","24032338"]},{"id":"directory-contact-5-18","name":"二科","numbers":["24032229","24032336"]}],"notes":[],"id":"directory-section-5-group-3","tone":"blue"},{"name":"醫1F 2D echo心超","contacts":[{"id":"directory-contact-5-20","name":"一科","numbers":["24032359"]},{"id":"directory-contact-5-21","name":"二科","numbers":["24032369","24032337"]}],"notes":[],"id":"directory-section-5-group-4","tone":"blue"},{"name":"醫1F神內檢查","contacts":[{"id":"directory-contact-5-23","name":"櫃台","numbers":["24032740"]},{"id":"directory-contact-5-24","name":"EEG","numbers":["24032208"]}],"notes":[],"id":"directory-section-5-group-5","tone":"blue"},{"name":"超音波與其他檢查","contacts":[{"id":"directory-contact-5-25","name":"醫11F支鏡","numbers":["24032275","24035082"]},{"id":"directory-contact-5-26","name":"胸超","numbers":["24032287"]},{"id":"directory-contact-5-27","name":"腎超室","numbers":["24032686"]},{"id":"directory-contact-5-28","name":"腹超室","numbers":["24032225","24032235"]},{"id":"directory-contact-5-29","name":"婦超室","numbers":["24038262"]},{"id":"directory-contact-5-30","name":"醫11F ST ROOM直肛室","numbers":["24032210","24032211"]}],"notes":[],"id":"directory-section-5-group-6","tone":"blue"},{"name":"高壓氧與內視鏡","contacts":[{"id":"directory-contact-5-32","name":"Hyperbaric oxygen therapy","numbers":["24032477","24032478"]},{"id":"directory-contact-5-33","name":"ERCP","numbers":["24032230"]},{"id":"directory-contact-5-34","name":"胃鏡室Panendoscopy","numbers":["24032227","24032228"]},{"id":"directory-contact-5-35","name":"內視鏡治療Colonoscopy Sigmoidscopy","numbers":["24032217","24032221"]}],"notes":[],"id":"directory-section-5-group-7","tone":"blue"}],"tone":"blue"},{"id":"directory-section-6","name":"檢驗","description":"檢驗室","groups":[{"name":"","contacts":[{"id":"directory-contact-6-2","name":"抽血 醫1F","numbers":["24032527"]},{"id":"directory-contact-6-3","name":"檢驗 醫2F","numbers":["24032550","24032533"]},{"id":"directory-contact-6-4","name":"血庫 醫2F","numbers":["24032538","24032548"]},{"id":"directory-contact-6-5","name":"病理解剖 3A","numbers":["24032724","24032725","24032726"]},{"id":"directory-contact-6-6","name":"切片 3A","numbers":["24032721"]},{"id":"directory-contact-6-7","name":"細胞學 3A","numbers":["24032738"]},{"id":"directory-contact-6-8","name":"血液檢查室 6F","numbers":["24032555","24032534"]},{"id":"directory-contact-6-9","name":"病毒組 2K","numbers":["24038354","24038374"]}],"notes":[],"id":"directory-section-6-group-0","tone":"blue"}],"tone":"blue"},{"id":"directory-section-7","name":"洗腎透析","description":"","groups":[{"name":"","contacts":[{"id":"directory-contact-7-1","name":"2樓洗腎室","numbers":["24032680","24032681"]},{"id":"directory-contact-7-2","name":"JB2 腹膜透析","numbers":["24038831","24038832","24038833","24038834","24038835"]}],"notes":[],"id":"directory-section-7-group-0","tone":"teal"}],"tone":"teal"},{"id":"directory-section-8","name":"手術室麻醉","description":"手 術 室","groups":[{"name":"","contacts":[{"id":"directory-contact-8-2","name":"OR控台","numbers":["24032391","240368843","24032380#600"]},{"id":"directory-contact-8-4","name":"2F刀房 分機 6XX房號","numbers":["24032380"]},{"id":"directory-contact-8-5","name":"2F等候室","numbers":["24032394","24032380#251"]},{"id":"directory-contact-8-6","name":"2F恢復室POR","numbers":["24032396","24032397"]},{"id":"directory-contact-8-7","name":"2F OR器械室","numbers":["24032747"]},{"id":"directory-contact-8-8","name":"300 房 分機 #301~3","numbers":["24032380"]},{"id":"directory-contact-8-9","name":"8F等候室","numbers":["24038137"]},{"id":"directory-contact-8-10","name":"8F刀房 分機 8XX房號","numbers":["24038131"]},{"id":"directory-contact-8-11","name":"麻醉科","numbers":["24032388","267670"]}],"notes":[],"id":"directory-section-8-group-0","tone":"indigo"}],"tone":"indigo"},{"id":"directory-section-9","name":"醫學大樓病房","description":"醫學 病房","groups":[{"name":"","contacts":[{"id":"directory-contact-9-2","name":"5A整外","numbers":["24032867","24032868"]},{"id":"directory-contact-9-3","name":"5C整合醫學","numbers":["24032861","24032862"]},{"id":"directory-contact-9-4","name":"6A外","numbers":["24032886","24032887"]},{"id":"directory-contact-9-5","name":"6B外","numbers":["24032896","24032897"]},{"id":"directory-contact-9-6","name":"6C外","numbers":["24032881","24032882"]},{"id":"directory-contact-9-7","name":"7A心內","numbers":["24032906","24032907"]},{"id":"directory-contact-9-8","name":"7B心內","numbers":["24032916","24032917"]},{"id":"directory-contact-9-9","name":"7C心外","numbers":["24032901","24032902"]},{"id":"directory-contact-9-10","name":"7D心內外","numbers":["24032911","24032912"]},{"id":"directory-contact-9-11","name":"8A胃","numbers":["24032927","24032938"]},{"id":"directory-contact-9-12","name":"8B胃","numbers":["24032936","24032937"]},{"id":"directory-contact-9-13","name":"8C胃","numbers":["24032921","24032922"]},{"id":"directory-contact-9-14","name":"9A胸內","numbers":["24032947","24032948"]},{"id":"directory-contact-9-15","name":"9B胸內","numbers":["24032957","24032958"]},{"id":"directory-contact-9-16","name":"9C胸內","numbers":["24032942","24032943"]},{"id":"directory-contact-9-17","name":"9D胸內","numbers":["24032952","24032953"]},{"id":"directory-contact-9-18","name":"10A一般外","numbers":["24032967","24032968"]},{"id":"directory-contact-9-19","name":"10C腎","numbers":["24032961","24032962"]},{"id":"directory-contact-9-20","name":"10D腎","numbers":["24032971","24032972"]},{"id":"directory-contact-9-21","name":"11A整+直","numbers":["24032843"]},{"id":"directory-contact-9-22","name":"11B直","numbers":["24032841","24032842"]},{"id":"directory-contact-9-23","name":"11C內","numbers":["24032982","24032983"]}],"notes":[],"id":"directory-section-9-group-0","tone":"green"}],"tone":"green"},{"id":"directory-section-10","name":"兒童大樓","description":"","groups":[{"name":"兒童加護","contacts":[{"id":"directory-contact-10-2","name":"PPICU 1 床號:2L- 201~213, 219~228","numbers":["24038500","24038501"]},{"id":"directory-contact-10-3","name":"PNICU 1 床號:3L- 301~318","numbers":["24038503","24038504"]},{"id":"directory-contact-10-4","name":"PNBC 1 床號:3L- 332~358","numbers":["24038509","24038510"]},{"id":"directory-contact-10-5","name":"PNICU 2 新生兒 床號:5L- 501~525","numbers":["24038511","24038512","24038633"]},{"id":"directory-contact-10-6","name":"PNBC 2 床號:5L- 530~572","numbers":["24038515","24038516","24038517","24038636"]}],"notes":[],"id":"directory-section-10-group-0","tone":"rose"},{"name":"兒童醫院病房","contacts":[{"id":"directory-contact-10-9","name":"3K DR產房","numbers":["24038563","24038564","24038565","24038566"]},{"id":"directory-contact-10-10","name":"3K-BR嬰兒室","numbers":["24038561","24038562"]},{"id":"directory-contact-10-11","name":"5K產","numbers":["24038571","24038572"]},{"id":"directory-contact-10-12","name":"6L兒血液腫瘤","numbers":["24038519","24038512"]},{"id":"directory-contact-10-13","name":"6K產後","numbers":["24038586","24038587"]},{"id":"directory-contact-10-14","name":"7L兒內","numbers":["24038523","24038524"]},{"id":"directory-contact-10-15","name":"8L兒外","numbers":["24038533","24038534"]},{"id":"directory-contact-10-16","name":"9L兒內","numbers":["24038581","24038582"]},{"id":"directory-contact-10-17","name":"9K婦","numbers":["24038613","24038614"]},{"id":"directory-contact-10-18","name":"10L兒內外","numbers":["24038596","24038597"]},{"id":"directory-contact-10-19","name":"10K婦","numbers":["24038609","24038610"]},{"id":"directory-contact-10-20","name":"11K婦 . 皮 . 整外","numbers":["24038605","24038606"]},{"id":"directory-contact-10-21","name":"11J眼 . 風 . 皮","numbers":["24038677","24038678"]},{"id":"directory-contact-10-22","name":"12K生殖","numbers":["24032709","24032780"]},{"id":"directory-contact-10-23","name":"13L尊爵","numbers":["24038767","24038768"]},{"id":"directory-contact-10-24","name":"13K感","numbers":["24038751","24038752"]},{"id":"directory-contact-10-25","name":"13J感","numbers":["24038711","24038712"]}],"notes":[],"id":"directory-section-10-group-1","tone":"rose"},{"name":"兒童檢查與門診","contacts":[{"id":"directory-contact-10-27","name":"兒童 2D","numbers":["24038529"]},{"id":"directory-contact-10-28","name":"兒童echo 7L","numbers":["24038240","24038526"]},{"id":"directory-contact-10-29","name":"Air recduction","numbers":["24038404"]},{"id":"directory-contact-10-30","name":"兒童Xray","numbers":["24038399","24038404"]},{"id":"directory-contact-10-31","name":"兒童B1 H/D","numbers":["24038801"]},{"id":"directory-contact-10-32","name":"10J眼門診","numbers":["24038665"]}],"notes":[],"id":"directory-section-10-group-2","tone":"rose"}],"tone":"rose"},{"id":"directory-section-11","name":"復健大樓病房","description":"復健病房","groups":[{"name":"","contacts":[{"id":"directory-contact-11-2","name":"3G精","numbers":["24033830","24033831"]},{"id":"directory-contact-11-3","name":"5G復","numbers":["24033850","24033851"]},{"id":"directory-contact-11-4","name":"6G骨","numbers":["24033860","24033861"]},{"id":"directory-contact-11-5","name":"6H骨","numbers":["24033865","24033866"]},{"id":"directory-contact-11-6","name":"7G骨","numbers":["24033870","24033871"]},{"id":"directory-contact-11-7","name":"7H骨","numbers":["24033875","24033876"]},{"id":"directory-contact-11-8","name":"8G外傷","numbers":["24033880","24033881"]},{"id":"directory-contact-11-9","name":"8H一般外","numbers":["24033885","24033886"]},{"id":"directory-contact-11-10","name":"9G神外","numbers":["24033890","24033891"]},{"id":"directory-contact-11-11","name":"10G神外","numbers":["24033900","24033901"]},{"id":"directory-contact-11-12","name":"10H神外","numbers":["24033905","24033906"]},{"id":"directory-contact-11-13","name":"11G神內","numbers":["24033910","24033911"]},{"id":"directory-contact-11-14","name":"11H神內","numbers":["24033915","24033916"]},{"id":"directory-contact-11-15","name":"12G耳.牙","numbers":["24033920","24033921"]},{"id":"directory-contact-11-16","name":"12H耳.牙","numbers":["24033925","24033926"]},{"id":"directory-contact-11-17","name":"13G泌 (腎移植)","numbers":["24033930","24033921"]},{"id":"directory-contact-11-18","name":"13H神內.泌","numbers":["24033935","24033956"]}],"notes":[],"id":"directory-section-11-group-0","tone":"green"}],"tone":"green"},{"id":"directory-section-12","name":"病理大樓病房","description":"病理大樓","groups":[{"name":"","contacts":[{"id":"directory-contact-12-3","name":"7F血液腫瘤","numbers":["24032846","24032866"]},{"id":"directory-contact-12-4","name":"8F腫瘤","numbers":["24032987","24032988"]},{"id":"directory-contact-12-5","name":"9F腫瘤","numbers":["24032997","24032998"]},{"id":"directory-contact-12-6","name":"10F血液","numbers":["24032483","24032484"]},{"id":"directory-contact-12-7","name":"11F血液","numbers":["24035710","24035711"]},{"id":"directory-contact-12-8","name":"12F新代","numbers":["24035810","24035811"]},{"id":"directory-contact-12-9","name":"13F內.高齡","numbers":["24035820","24035821"]}],"notes":[],"id":"directory-section-12-group-0","tone":"green"}],"tone":"green"},{"id":"directory-section-13","name":"藥局","description":"藥 局","groups":[{"name":"","contacts":[{"id":"directory-contact-13-2","name":"5F化療藥局","numbers":["24033571"]},{"id":"directory-contact-13-3","name":"6F化療藥局","numbers":["24032915","24032768"]},{"id":"directory-contact-13-4","name":"中央藥局","numbers":["24032692","24032693","24032694","24032695","24032696","24032697"]},{"id":"directory-contact-13-5","name":"UD藥局","numbers":["24032698","24032768"]},{"id":"directory-contact-13-6","name":"ER藥局","numbers":["24032675"]}],"notes":[],"id":"directory-section-13-group-0","tone":"amber"}],"tone":"amber"}]};
+var directoryContacts=[],directoryContactById={},directoryJumpRestoreFocus=true;
+var directoryHistory={searches:[],calls:[]},directorySearchTimer=null,directorySearchOpenState=null;
+var DIRECTORY_HISTORY_KEY='cgmh_er_directory_history_v1';
+function directoryNormalize(value){return String(value).normalize('NFKC').toLowerCase().replace(/[\s()#,+\-]/g,'');}
+function directoryDialNumber(raw,emergency,randomize){
+  var number=String(raw).normalize('NFKC').replace(/[\s()\-]/g,'');
+  if(emergency&&/^#\d+$/.test(number)){
+    var index=randomize?Math.floor(Math.random()*DIRECTORY_DATA.transfers.length):0;
+    return DIRECTORY_DATA.transfers[index]+','+number.slice(1);
+  }
+  return number.replace(/#/g,',');
+}
+function directoryCallLink(contact,raw,recent){
+  var extension=contact.emergency&&/^#\d+$/.test(raw);
+  var label=extension?'透過急診轉接撥打 '+contact.name+' 分機 '+raw.slice(1):'撥打 '+contact.name+' '+raw;
+  return '<a class="directory-call'+(recent?' directory-recent-call':'')+'" href="tel:'+directoryDialNumber(raw,contact.emergency,false)+'" data-directory-number="'+esc(raw)+'" data-directory-contact="'+contact.id+'" data-emergency="'+(contact.emergency?'1':'0')+'" aria-label="'+esc(label)+'">'
+    +(recent?'<strong>'+esc(contact.name)+'</strong>':'')
+    +'<span class="directory-call-number"><span class="directory-call-icon" aria-hidden="true">☎</span> '+esc(raw)+'</span>'
+    +(recent?'<small>'+esc(contact.sectionName)+'</small>':'')+'</a>';
+}
+function buildDirectory(){
+  directoryContacts=[];directoryContactById={};
+  var sections=document.getElementById('directory-sections'),jumpGrid=document.getElementById('directory-jump-grid');
+  sections.innerHTML=DIRECTORY_DATA.sections.map(function(section){
+    var contactCount=section.groups.reduce(function(count,group){return count+group.contacts.length;},0);
+    return '<details class="directory-section" id="'+section.id+'" data-directory-tone="'+section.tone+'" aria-labelledby="'+section.id+'-title">'
+      +'<summary class="directory-section-summary" id="'+section.id+'-summary"><h2 id="'+section.id+'-title">'+esc(section.name)+'</h2><span class="directory-section-count">'+contactCount+' 筆</span></summary>'
+      +'<div class="directory-section-body">'+(section.description?'<p class="directory-description">'+esc(section.description)+'</p>':'')
+      +section.groups.map(function(group){
+        var tag=group.name?'details':'div';
+        return '<'+tag+' class="directory-group'+(group.name?' has-summary':'')+'" id="'+group.id+'" data-directory-tone="'+group.tone+'">'
+          +(group.name?'<summary class="directory-group-summary"><h3>'+esc(group.name)+'</h3><span>'+group.contacts.length+' 筆</span></summary>':'')
+          +'<div class="directory-group-body">'
+          +'<div class="directory-contact-grid">'+group.contacts.map(function(contact){
+            var meta={id:contact.id,name:contact.name,numbers:contact.numbers,emergency:section.name==='急診',sectionId:section.id,sectionName:section.name};
+            directoryContactById[contact.id]=meta;
+            return '<article class="directory-contact" id="'+contact.id+'"><h4>'+esc(contact.name)+'</h4>'
+              +(contact.numbers.length?'<div class="directory-phone-buttons">'+contact.numbers.map(function(raw){return directoryCallLink(meta,raw,false);}).join('')+'</div>':'<p class="directory-missing">未提供電話</p>')+'</article>';
+          }).join('')+'</div>'
+          +(group.notes.length?'<div class="directory-notes">'+group.notes.map(function(note){return '<p class="directory-note"><strong>'+esc(note.name)+'</strong>'+(note.text?'：'+esc(note.text):'')+'</p>';}).join('')+'</div>':'')+'</div></'+tag+'>';
+      }).join('')+'</div></details>';
+  }).join('');
+  renderDirectoryJump();
+  DIRECTORY_DATA.sections.forEach(function(section){
+    section.groups.forEach(function(group,index){
+      group.contacts.forEach(function(contact){directoryContacts.push({
+        element:document.getElementById(contact.id),
+        search:directoryNormalize([section.name,group.name,contact.name].concat(contact.numbers).join(' '))
+      });});
+      var groupElement=document.getElementById(section.id).querySelectorAll('.directory-group')[index];
+      groupElement.querySelectorAll('.directory-note').forEach(function(note){note.dataset.search=directoryNormalize(section.name+' '+group.name+' '+note.textContent);});
+    });
+  });
+  loadDirectoryHistory();renderDirectoryHistory();
+  var search=document.getElementById('directory-search');
+  search.addEventListener('input',function(event){
+    filterDirectory();clearTimeout(directorySearchTimer);
+    if(!event.isComposing&&directoryNormalize(search.value))directorySearchTimer=setTimeout(function(){rememberDirectorySearch(search.value);},900);
+  });
+  search.addEventListener('keydown',function(event){if(event.key==='Enter'&&!event.isComposing){clearTimeout(directorySearchTimer);rememberDirectorySearch(search.value);}});
+  search.addEventListener('blur',function(event){clearTimeout(directorySearchTimer);rememberDirectorySearch(search.value,!(event.relatedTarget&&event.relatedTarget.closest('#directory-history')));});
+  document.getElementById('directory-clear').addEventListener('click',function(){clearTimeout(directorySearchTimer);search.value='';filterDirectory();search.focus();});
+  document.getElementById('directory-quick-trigger').addEventListener('click',openDirectoryJump);
+  document.getElementById('directory-jump-back').addEventListener('click',function(){
+    renderDirectoryJump();document.getElementById('directory-jump-dialog').scrollTop=0;
+    document.querySelector('[data-directory-section="directory-section-0"]').focus();
+  });
+  var dialog=document.getElementById('directory-jump-dialog');
+  dialog.addEventListener('close',function(){
+    document.body.classList.remove('directory-jump-open');
+    document.getElementById('directory-quick-trigger').setAttribute('aria-expanded','false');
+    if(directoryJumpRestoreFocus)document.getElementById('directory-quick-trigger').focus({preventScroll:true});
+  });
+  dialog.addEventListener('click',function(event){
+    if(event.target!==dialog)return;
+    var bounds=dialog.getBoundingClientRect();
+    if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)closeDirectoryJump();
+  });
+  filterDirectory();
+  var resizeDirectory=new ResizeObserver(updateDirectoryOffsets);
+  resizeDirectory.observe(document.querySelector('header'));
+  resizeDirectory.observe(document.getElementById('directory-toolbar'));
+  updateDirectoryOffsets();
+}
+function loadDirectoryHistory(){
+  try{
+    var saved=JSON.parse(localStorage.getItem(DIRECTORY_HISTORY_KEY)||'{}');
+    if(Array.isArray(saved.searches))directoryHistory.searches=saved.searches.filter(function(query){return typeof query==='string'&&query.length<=100&&directoryNormalize(query);}).slice(0,8);
+    if(Array.isArray(saved.calls))directoryHistory.calls=saved.calls.filter(function(call){
+      var contact=call&&directoryContactById[call.id];return contact&&contact.numbers.indexOf(call.number)!==-1;
+    }).map(function(call){return {id:call.id,number:call.number};}).slice(0,6);
+  }catch(error){}
+}
+function saveDirectoryHistory(){try{localStorage.setItem(DIRECTORY_HISTORY_KEY,JSON.stringify(directoryHistory));}catch(error){}}
+function rememberDirectorySearch(value,render){
+  var query=String(value).normalize('NFKC').replace(/\s+/g,' ').trim().slice(0,100);
+  if(!directoryNormalize(query))return;
+  directoryHistory.searches=[query].concat(directoryHistory.searches.filter(function(old){return directoryNormalize(old)!==directoryNormalize(query);})).slice(0,8);
+  saveDirectoryHistory();if(render!==false)renderDirectoryHistory();
+}
+function rememberDirectoryCall(id,number){
+  var contact=directoryContactById[id];if(!contact||contact.numbers.indexOf(number)===-1)return;
+  directoryHistory.calls=[{id:id,number:number}].concat(directoryHistory.calls.filter(function(old){return old.id!==id||old.number!==number;})).slice(0,6);
+  saveDirectoryHistory();
+  // Keep the activated anchor in place until its native tel: action has run.
+  setTimeout(renderDirectoryHistory,0);
+}
+function renderDirectoryHistory(){
+  document.getElementById('directory-recent-searches').innerHTML=directoryHistory.searches.length?directoryHistory.searches.map(function(query){
+    return '<button type="button" class="directory-recent-search" data-directory-search="'+esc(query)+'">'+esc(query)+'</button>';
+  }).join(''):'<p class="directory-history-empty">尚無搜尋紀錄</p>';
+  document.getElementById('directory-recent-calls').innerHTML=directoryHistory.calls.length?directoryHistory.calls.map(function(call){return directoryCallLink(directoryContactById[call.id],call.number,true);}).join(''):'<p class="directory-history-empty">尚無點選紀錄</p>';
+  document.querySelector('[data-directory-history-clear="searches"]').hidden=!directoryHistory.searches.length;
+  document.querySelector('[data-directory-history-clear="calls"]').hidden=!directoryHistory.calls.length;
+}
+function updateDirectoryOffsets(){
+  document.documentElement.style.setProperty('--site-header-height',document.querySelector('header').getBoundingClientRect().height+'px');
+  var height=document.getElementById('directory-toolbar').getBoundingClientRect().height;
+  if(height)document.documentElement.style.setProperty('--directory-toolbar-height',height+'px');
+}
+function filterDirectory(){
+  var input=document.getElementById('directory-search'),query=directoryNormalize(input.value),count=0,sectionCount=0,noteCount=0;
+  if(query&&directorySearchOpenState===null){
+    directorySearchOpenState={};document.querySelectorAll('.directory-section,details.directory-group').forEach(function(section){directorySearchOpenState[section.id]=section.open;});
+  }
+  directoryContacts.forEach(function(contact){var match=!query||contact.search.indexOf(query)!==-1;contact.element.hidden=!match;if(match)count++;});
+  document.querySelectorAll('.directory-note').forEach(function(note){note.hidden=!!query&&note.dataset.search.indexOf(query)===-1;if(!note.hidden)noteCount++;});
+  document.querySelectorAll('.directory-group').forEach(function(group){
+    var contacts=group.querySelectorAll('.directory-contact:not([hidden])'),notes=group.querySelectorAll('.directory-note:not([hidden])');
+    group.hidden=!contacts.length&&!notes.length;
+    var noteBox=group.querySelector('.directory-notes');if(noteBox)noteBox.hidden=!notes.length;
+    if(group.tagName==='DETAILS'){
+      if(query)group.open=!group.hidden;
+      else if(directorySearchOpenState!==null)group.open=!!directorySearchOpenState[group.id];
+    }
+  });
+  document.querySelectorAll('.directory-section').forEach(function(section){
+    section.hidden=!section.querySelector('.directory-group:not([hidden])');if(!section.hidden)sectionCount++;
+    section.querySelector('.directory-section-count').textContent=section.querySelectorAll('.directory-contact:not([hidden])').length+' 筆';
+    if(query)section.open=!section.hidden;
+    else if(directorySearchOpenState!==null)section.open=!!directorySearchOpenState[section.id];
+  });
+  if(!query)directorySearchOpenState=null;
+  document.getElementById('directory-clear').hidden=!input.value;
+  document.getElementById('directory-empty').hidden=count>0||noteCount>0;
+  document.getElementById('directory-status').textContent=query?'找到 '+count+' 筆聯絡資料'+(noteCount?'、'+noteCount+' 筆備註':''):'共 '+sectionCount+' 個分類 · '+count+' 筆聯絡資料 · 點選分類展開';
+}
+function openDirectoryJump(){
+  closeMenu();directoryJumpRestoreFocus=true;renderDirectoryJump();
+  document.getElementById('directory-jump-dialog').showModal();
+  document.body.classList.add('directory-jump-open');
+  document.getElementById('directory-quick-trigger').setAttribute('aria-expanded','true');
+  document.querySelector('.directory-jump-button').focus();
+}
+function closeDirectoryJump(){document.getElementById('directory-jump-dialog').close();}
+function renderDirectoryJump(sectionId){
+  var section=DIRECTORY_DATA.sections.find(function(item){return item.id===sectionId;}),grid=document.getElementById('directory-jump-grid');
+  document.getElementById('directory-jump-back').hidden=!section;
+  document.getElementById('directory-jump-title').textContent=section?section.name:'快速轉跳';
+  document.querySelector('.directory-jump-head p').textContent=section?'選擇急診分區，展開電話清單':'選擇分類，跳至電話清單';
+  grid.innerHTML=section?section.groups.map(function(group){
+    return '<button type="button" class="directory-jump-button" data-directory-tone="'+group.tone+'" data-directory-group="'+group.id+'" data-directory-parent="'+section.id+'"><span>'+esc(group.name)+'</span><small>'+group.contacts.length+' 筆</small></button>';
+  }).join(''):DIRECTORY_DATA.sections.map(function(item){
+    var count=item.groups.reduce(function(total,group){return total+group.contacts.length;},0);
+    return '<button type="button" class="directory-jump-button" data-directory-tone="'+item.tone+'" data-directory-section="'+item.id+'"><span>'+esc(item.name)+'</span><small>'+count+' 筆</small></button>';
+  }).join('');
+}
+function directoryJumpTo(id,groupId){
+  var section=document.getElementById(id);if(!section)return;
+  clearTimeout(directorySearchTimer);document.getElementById('directory-search').value='';filterDirectory();section.open=true;
+  var target=groupId?document.getElementById(groupId):section;
+  if(!target)return;
+  if(groupId)target.open=true;
+  else section.querySelectorAll('details.directory-group').forEach(function(group){group.open=true;});
+  directoryJumpRestoreFocus=false;closeDirectoryJump();
+  requestAnimationFrame(function(){
+    updateDirectoryOffsets();
+    var offset=document.querySelector('header').getBoundingClientRect().height+document.getElementById('directory-toolbar').getBoundingClientRect().height+12;
+    var top=target.getBoundingClientRect().top+window.scrollY-offset;
+    target.querySelector('summary').focus({preventScroll:true});
+    window.scrollTo({top:Math.max(0,top),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  });
+}
+document.addEventListener('click',function(event){
+  var call=event.target.closest('a[data-directory-number]');
+  if(call){
+    call.setAttribute('href','tel:'+directoryDialNumber(call.dataset.directoryNumber,call.dataset.emergency==='1',true));
+    rememberDirectoryCall(call.dataset.directoryContact,call.dataset.directoryNumber);
+  }
+  var jump=event.target.closest('button[data-directory-section]');
+  if(jump){
+    if(jump.dataset.directorySection==='directory-section-0'){
+      renderDirectoryJump(jump.dataset.directorySection);document.getElementById('directory-jump-dialog').scrollTop=0;document.querySelector('[data-directory-group]').focus();
+    }else directoryJumpTo(jump.dataset.directorySection);
+  }
+  var subgroup=event.target.closest('button[data-directory-group]');if(subgroup)directoryJumpTo(subgroup.dataset.directoryParent,subgroup.dataset.directoryGroup);
+  var recentSearch=event.target.closest('button[data-directory-search]');
+  if(recentSearch){
+    var search=document.getElementById('directory-search');clearTimeout(directorySearchTimer);search.value=recentSearch.dataset.directorySearch;
+    filterDirectory();rememberDirectorySearch(search.value);search.focus({preventScroll:true});
+  }
+  var clearHistory=event.target.closest('button[data-directory-history-clear]');
+  if(clearHistory){directoryHistory[clearHistory.dataset.directoryHistoryClear]=[];saveDirectoryHistory();renderDirectoryHistory();}
+});
+
 function tryLogin(){
   var input=document.getElementById('gp-anki'),err=document.getElementById('ge-anki');
   if((input.value||'').trim().toLowerCase()==='mpr455'){
@@ -187,13 +589,104 @@ function ankiText(html){var el=document.createElement('div');el.innerHTML=html;r
 function ankiSetView(view){ankiView=view;document.getElementById('ev-card').classList.toggle('on',view==='card');document.getElementById('ev-list').classList.toggle('on',view==='list');ankiRenderBrowse();}
 function ankiRenderBrowse(){var box=document.getElementById('anki-browse');if(!ankiOrder.length){box.innerHTML='<div class="small">No cards.</div>';return;}if(ankiView==='list')box.innerHTML=ankiOrder.map(function(idx,pos){return '<div class="erow'+(pos===ankiPos?' cur':'')+'" data-pos="'+pos+'" onclick="ankiJump('+pos+')"><span class="n">'+(pos+1)+'</span><span>'+esc(ankiText(ankiCards[idx].front)||'(no text)')+'</span></div>';}).join('');else box.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:8px">'+ankiOrder.map(function(idx,pos){return '<div class="ecard'+(pos===ankiPos?' cur':'')+'" data-pos="'+pos+'" onclick="ankiJump('+pos+')"><b>'+(pos+1)+'.</b> '+esc(ankiText(ankiCards[idx].front)||'(no text)')+'</div>';}).join('')+'</div>';}
 function ankiHighlightBrowse(){var box=document.getElementById('anki-browse');box.querySelectorAll('[data-pos]').forEach(function(el){el.classList.toggle('cur',+el.dataset.pos===ankiPos);});var cur=box.querySelector('[data-pos].cur');if(cur)cur.scrollIntoView({block:'nearest'});}function ankiJump(pos){ankiPos=pos;ankiShow=false;ankiRenderCard();}
-function toggleMenu(e){if(e)e.stopPropagation();document.getElementById('menu-dd').classList.toggle('open');}
-function buildMenu(){document.getElementById('menu-dd').innerHTML='<button class="menu-item active">🃏 ER Study</button><div class="menu-sep"></div><div class="menu-label">Color theme</div><div class="theme-row"><div class="theme-dot" title="Default" data-theme="default" style="background:#0f6bb2" onclick="setTheme(\'default\')"></div><div class="theme-dot" title="Macaroon" data-theme="macaroon" style="background:#e0873a" onclick="setTheme(\'macaroon\')"></div><div class="theme-dot" title="Dark" data-theme="dark" style="background:#1a2632" onclick="setTheme(\'dark\')"></div><div class="theme-dot" title="Black / high contrast" data-theme="black" style="background:#000" onclick="setTheme(\'black\')"></div></div>';markThemeDot();}
+/* Add each new tab here and a matching #tab-{id} panel in <main>.
+   Desktop navigation, the site menu, and mobile navigation share this list. */
+var SITE_TABS=[
+  {id:'directory',icon:'☎️',label:'Directory'},
+  {id:'anki',icon:'🃏',label:'ER Study'}
+];
+var currentTab='directory',mobileTabsOpener=null;
+function tabButton(tab,className,iconClass){
+  return '<button type="button" class="'+className+'" data-tab="'+esc(tab.id)+'"><span'+(iconClass?' class="'+iconClass+'"':'')+' aria-hidden="true">'+esc(tab.icon)+'</span> <span>'+esc(tab.label)+'</span></button>';
+}
+function buildNavigation(){
+  document.getElementById('primary-nav').innerHTML=SITE_TABS.map(function(tab){return tabButton(tab,'','');}).join('');
+  var primary=SITE_TABS.slice(0,4),bottom=document.getElementById('mobile-bottom-nav');
+  bottom.style.setProperty('--mobile-nav-count',primary.length+1);
+  bottom.innerHTML=primary.map(function(tab){return tabButton(tab,'mobile-nav-item','mobile-nav-icon');}).join('')
+    +'<button class="mobile-nav-item" id="mobile-more-tab" type="button" onclick="openMobileTabs()" aria-controls="mobile-tabs-layer" aria-expanded="false"><span class="mobile-nav-icon" aria-hidden="true">▦</span><span>All</span></button>';
+  document.getElementById('mobile-tab-grid').innerHTML=SITE_TABS.map(function(tab){return tabButton(tab,'mobile-tab-card','mobile-tab-icon');}).join('');
+  buildMenu();
+  showTab(currentTab);
+}
+function showTab(id){
+  var panel=document.getElementById('tab-'+id),meta=SITE_TABS.find(function(tab){return tab.id===id;});
+  if(!panel||!meta)return;
+  currentTab=id;
+  document.querySelectorAll('main > .tab').forEach(function(tab){tab.classList.toggle('active',tab===panel);});
+  document.querySelectorAll('#primary-nav [data-tab],#menu-dd [data-tab],#mobile-bottom-nav [data-tab],#mobile-tab-grid [data-tab]').forEach(function(button){
+    var active=button.dataset.tab===id;button.classList.toggle('active',active);
+    if(active)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
+  });
+  document.getElementById('mobile-current-title').textContent=meta.label;
+  var more=document.getElementById('mobile-more-tab'),primary=SITE_TABS.slice(0,4).some(function(tab){return tab.id===id;});
+  more.classList.toggle('active',!primary);
+  if(!primary)more.setAttribute('aria-current','page');else more.removeAttribute('aria-current');
+}
+function closeMenu(){
+  document.getElementById('menu-dd').classList.remove('open');
+  document.getElementById('site-menu-trigger').setAttribute('aria-expanded','false');
+}
+function toggleMenu(e){
+  if(e)e.stopPropagation();
+  var open=document.getElementById('menu-dd').classList.toggle('open');
+  document.getElementById('site-menu-trigger').setAttribute('aria-expanded',String(open));
+}
+function openMobileTabs(){
+  var layer=document.getElementById('mobile-tabs-layer');
+  if(!layer.hidden||window.innerWidth>860)return;
+  closeMenu();mobileTabsOpener=document.activeElement;
+  layer.hidden=false;layer.classList.add('open');document.body.classList.add('mobile-tabs-open');
+  document.querySelectorAll('header,main,#mobile-bottom-nav,#menu-dd').forEach(function(el){el.inert=true;});
+  document.getElementById('mobile-tabs-trigger').setAttribute('aria-expanded','true');
+  document.getElementById('mobile-more-tab').setAttribute('aria-expanded','true');
+  var active=layer.querySelector('.mobile-tab-card.active')||layer.querySelector('.mobile-sheet-close');
+  active.focus();
+}
+function closeMobileTabs(restoreFocus){
+  var layer=document.getElementById('mobile-tabs-layer');if(layer.hidden)return;
+  layer.hidden=true;layer.classList.remove('open');document.body.classList.remove('mobile-tabs-open');
+  document.querySelectorAll('header,main,#mobile-bottom-nav,#menu-dd').forEach(function(el){el.inert=false;});
+  document.getElementById('mobile-tabs-trigger').setAttribute('aria-expanded','false');
+  document.getElementById('mobile-more-tab').setAttribute('aria-expanded','false');
+  if(restoreFocus!==false&&mobileTabsOpener&&mobileTabsOpener.isConnected)mobileTabsOpener.focus();
+  mobileTabsOpener=null;
+}
+document.addEventListener('click',function(e){
+  var button=e.target.closest('button[data-tab]');
+  if(button&&button.closest('#primary-nav,#menu-dd,#mobile-bottom-nav,#mobile-tab-grid')){
+    var moveFocus=!document.getElementById('mobile-tabs-layer').hidden||button.closest('#menu-dd');
+    showTab(button.dataset.tab);closeMenu();closeMobileTabs(false);
+    if(moveFocus)document.getElementById('tab-'+currentTab).focus({preventScroll:true});
+  }
+  if(!e.target.closest('#menu-wrap')&&!e.target.closest('#menu-dd'))closeMenu();
+});
+document.addEventListener('keydown',function(e){
+  var layer=document.getElementById('mobile-tabs-layer');
+  if(e.key==='Escape'){
+    if(!layer.hidden){closeMobileTabs();e.preventDefault();}
+    else if(document.getElementById('menu-dd').classList.contains('open')){closeMenu();document.getElementById('site-menu-trigger').focus();e.preventDefault();}
+  }
+  if(e.key==='Tab'&&!layer.hidden){
+    var buttons=layer.querySelectorAll('.mobile-tabs-sheet button'),first=buttons[0],last=buttons[buttons.length-1];
+    if(e.shiftKey&&document.activeElement===first){last.focus();e.preventDefault();}
+    else if(!e.shiftKey&&document.activeElement===last){first.focus();e.preventDefault();}
+  }
+});
+window.addEventListener('resize',function(){
+  if(window.innerWidth>860&&!document.getElementById('mobile-tabs-layer').hidden){
+    closeMobileTabs(false);document.querySelector('#primary-nav button.active').focus();
+  }
+});
+function buildMenu(){
+  document.getElementById('menu-dd').innerHTML=SITE_TABS.map(function(tab){return tabButton(tab,'menu-item','');}).join('')
+    +'<div class="menu-sep"></div><div class="menu-label">Color theme</div><div class="theme-row"><div class="theme-dot" title="Default" data-theme="default" style="background:#0f6bb2" onclick="setTheme(\'default\')"></div><div class="theme-dot" title="Macaroon" data-theme="macaroon" style="background:#e0873a" onclick="setTheme(\'macaroon\')"></div><div class="theme-dot" title="Dark" data-theme="dark" style="background:#1a2632" onclick="setTheme(\'dark\')"></div><div class="theme-dot" title="Black / high contrast" data-theme="black" style="background:#000" onclick="setTheme(\'black\')"></div></div>';
+  markThemeDot();
+}
 function setTheme(theme){document.body.classList.remove('theme-macaroon','theme-dark','theme-black');if(theme!=='default')document.body.classList.add('theme-'+theme);try{localStorage.setItem('cgmh_er_theme',theme);}catch(e){}markThemeDot();}
 function markThemeDot(){var current='default';if(document.body.classList.contains('theme-macaroon'))current='macaroon';else if(document.body.classList.contains('theme-dark'))current='dark';else if(document.body.classList.contains('theme-black'))current='black';document.querySelectorAll('.theme-dot').forEach(function(dot){dot.classList.toggle('sel',dot.dataset.theme===current);});}
-document.addEventListener('click',function(e){if(!e.target.closest('#menu-wrap')&&!e.target.closest('#menu-dd'))document.getElementById('menu-dd').classList.remove('open');});
-document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'||k==='arrowleft'){ankiPrev();e.preventDefault();}else if(k==='s'||k==='arrowdown'){ankiReveal();e.preventDefault();}else if(k==='d'||k==='arrowright'){ankiNext();e.preventDefault();}});
-(function init(){var theme='default';try{theme=localStorage.getItem('cgmh_er_theme')||'default';if(sessionStorage.getItem('cgmh_er_study_unlocked')==='1')document.getElementById('tab-anki').classList.remove('locked');}catch(e){}setTheme(theme);buildMenu();ankiInitManifest();})();
+document.addEventListener('keydown',function(e){if(['input','textarea','select'].includes((e.target.tagName||'').toLowerCase())||e.ctrlKey||e.metaKey||e.altKey||currentTab!=='anki'||!document.getElementById('mobile-tabs-layer').hidden||document.getElementById('tab-anki').classList.contains('locked')||!ankiCards.length)return;var k=(e.key||'').toLowerCase();if(k==='a'||k==='arrowleft'){ankiPrev();e.preventDefault();}else if(k==='s'||k==='arrowdown'){ankiReveal();e.preventDefault();}else if(k==='d'||k==='arrowright'){ankiNext();e.preventDefault();}});
+(function init(){var theme='default';try{theme=localStorage.getItem('cgmh_er_theme')||'default';if(sessionStorage.getItem('cgmh_er_study_unlocked')==='1')document.getElementById('tab-anki').classList.remove('locked');}catch(e){}setTheme(theme);buildNavigation();buildDirectory();ankiInitManifest();})();
 </script>
 </body>
 </html>
