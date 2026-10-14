@@ -69,7 +69,7 @@ body.theme-black header{background:#000;border-bottom:1px solid #333}body.theme-
 .mobile-header-current,.mobile-tabs-trigger,.mobile-bottom-nav,.mobile-tabs-layer{display:none}
 .mobile-tabs-layer[hidden]{display:none!important}
 @media(max-width:860px){
-  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(var(--site-header-height,54px) + 12px + env(safe-area-inset-bottom))}
   header{padding:7px 10px;gap:9px;min-height:54px}
   #menu-wrap{flex:0 0 auto}
   .brand{gap:7px}
@@ -84,8 +84,8 @@ body.theme-black header{background:#000;border-bottom:1px solid #333}body.theme-
   main{padding:12px 10px}
   .menu-dd{top:58px;left:8px;right:8px;min-width:0;max-height:calc(100dvh - 70px)}
   .row{flex-direction:column;gap:6px}.row>*{width:100%}.btnrow{gap:6px}
-  .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:190;display:grid;grid-template-columns:repeat(var(--mobile-nav-count,3),minmax(0,1fr));gap:2px;padding:5px 6px calc(5px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -5px 18px rgba(10,34,55,.12)}
-  .mobile-nav-item{min-width:0;min-height:54px;border:0;border-radius:9px;background:transparent;color:var(--sub);padding:5px 2px 4px;font-family:inherit;font-size:10.5px;line-height:1.1;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+  .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:190;display:grid;grid-template-columns:repeat(var(--mobile-nav-count,3),minmax(0,1fr));gap:2px;height:calc(var(--site-header-height,54px) + env(safe-area-inset-bottom));padding:3px 6px calc(3px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -5px 18px rgba(10,34,55,.12)}
+  .mobile-nav-item{min-width:0;min-height:0;height:100%;border:0;border-radius:9px;background:transparent;color:var(--sub);padding:2px;font-family:inherit;font-size:10.5px;line-height:1.1;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
   .mobile-nav-item .mobile-nav-icon{font-size:19px;line-height:1.1;filter:grayscale(.18)}
   .mobile-nav-item.active{background:var(--chip);color:var(--acc);font-weight:700}
   .mobile-nav-item.active .mobile-nav-icon{filter:none;transform:translateY(-1px)}
@@ -214,7 +214,7 @@ body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick
 .directory-intro{margin-bottom:8px}
 .directory-section{margin-bottom:5px}
 @media(max-width:860px){
-  body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(var(--site-header-height,54px) + 12px + env(safe-area-inset-bottom))}
   .directory-toolbar{gap:6px}
   .directory-search-field{padding:0 8px;gap:5px}
   #directory-search{font-size:26px;padding:8px 0}
@@ -252,40 +252,39 @@ body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick
   .directory-recent-call{flex-basis:210px;max-width:210px;padding:6px 8px;gap:4px}
   .directory-recent-call strong{font-size:20px;line-height:1.15}
   .directory-recent-call small{font-size:16px;line-height:1.15}
-  .mobile-nav-item{font-size:16px;min-height:60px}
-  .mobile-nav-item .mobile-nav-icon{font-size:23px}
+  .mobile-nav-item{font-size:14px;min-height:0;gap:2px}
+  .mobile-nav-item .mobile-nav-icon{font-size:19px}
 }
 .directory-rank-heading{grid-column:1/-1;margin:5px 0 0;padding:5px 2px;border-bottom:1px solid var(--line);font-size:17px;color:var(--directory-accent)}
 .directory-rank-heading[hidden]{display:none!important}
 .directory-contact h5{margin:0;font-size:13px;line-height:1.4;font-weight:650;overflow-wrap:anywhere}
 @media(max-width:860px){.directory-rank-heading{font-size:24px;padding:5px 2px;margin-top:3px}.directory-contact h5{flex:1;min-width:min(100%,100px);font-size:21px;line-height:1.15}}
 /* Information shares the site's themes and keeps long-form reading compact. */
-.information-page{max-width:900px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;font-size:17px;line-height:1.55;overflow-wrap:anywhere}
-.information-heading h1{margin:0 0 12px;font-size:30px;line-height:1.2;color:var(--ink)}
+.information-page{max-width:900px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;font-size:16px;line-height:1.5;overflow-wrap:anywhere}
+.information-heading h1{margin:0 0 12px;font-size:26px;line-height:1.2;color:var(--ink)}
 .information-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
 .information-section:first-of-type{margin-top:0;padding-top:0;border-top:0}
-.information-section h2{margin:0 0 8px;font-size:24px;line-height:1.25;color:var(--acc2)}
+.information-section h2{margin:0 0 8px;font-size:21px;line-height:1.25;color:var(--acc2)}
 .information-section p{margin:0 0 8px}
 .information-section p:last-child{margin-bottom:0}
-.information-lead{font-size:19px}
+.information-lead{font-size:17px}
 .information-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px;margin:8px 0 10px;padding-left:22px}
 .information-features li::marker{color:var(--acc)}
 .information-disclaimer{padding:12px 14px;border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:8px;background:var(--chip)}
 .information-pillars{color:var(--acc2)}
-.information-purpose{margin:8px 0 12px;padding:10px 14px;border-left:4px solid var(--acc);background:var(--chip);border-radius:0 8px 8px 0;font-size:19px;line-height:1.45}
-.information-signoff{color:var(--sub);font-size:16px}
+.information-purpose{margin:8px 0 12px;padding:10px 14px;border-left:4px solid var(--acc);background:var(--chip);border-radius:0 8px 8px 0;font-size:17px;line-height:1.45}
+.information-signoff{color:var(--sub);font-size:14px}
 @media(max-width:860px){
-  .information-page{padding:14px 12px;font-size:18px;line-height:1.5}
-  .information-heading h1{font-size:28px;margin-bottom:10px}
+  .information-page{padding:14px 12px;font-size:16px;line-height:1.5}
+  .information-heading h1{font-size:24px;margin-bottom:10px}
   .information-section{margin-top:12px;padding-top:12px}
-  .information-section h2{font-size:24px;margin-bottom:6px}
+  .information-section h2{font-size:21px;margin-bottom:6px}
   .information-section p{margin-bottom:7px}
   .information-features{grid-template-columns:1fr;gap:3px;margin:7px 0 9px;padding-left:21px}
   .information-disclaimer{padding:10px}
-  .information-purpose{padding:9px 10px;font-size:20px}
-  .information-lead{font-size:20px}
+  .information-purpose{padding:9px 10px;font-size:17px}
+  .information-lead{font-size:17px}
 }
-@media(max-width:360px){.mobile-nav-item[data-tab="information"]>span:last-child{font-size:13px}}
 </style>
 </head>
 <body>
@@ -392,7 +391,7 @@ body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick
       <div class="information-heading"><h1 id="information-title"><span aria-hidden="true">ℹ️</span> Information</h1></div>
       <section class="information-section" aria-labelledby="information-about">
         <h2 id="information-about">About This Page</h2>
-        <p class="information-lead">This website was created by <strong>Victor Lin</strong> with love for <strong>Laku</strong>.</p>
+        <p class="information-lead">This website was created by <strong>Victor</strong> with love for <strong>Laku</strong>.</p>
         <p>It began as a personal project to support Laku's journey in <strong>Emergency Medicine</strong>: a place to collect study materials, practical information, and lessons encountered along the way.</p>
         <p>As Laku progresses through Emergency Medicine residency training, hopefully at CGMH, we hope the site will evolve alongside that experience.</p>
       </section>
@@ -419,7 +418,7 @@ body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick
       <section class="information-section" aria-labelledby="information-updates">
         <h2 id="information-updates">Suggestions &amp; Updates</h2>
         <p><strong>Corrections, ideas, and feedback are always welcome.</strong></p>
-        <p>If you notice outdated information, unclear explanations, missing topics, or something that could be improved, please contact <strong>Laku 張洛瑋</strong> or <strong>林揚修 / Victor Lin</strong> via <strong>Teams</strong>.</p>
+        <p>Please contact us via <strong>Teams</strong>.</p>
       </section>
       <section class="information-section" aria-labelledby="information-vision">
         <h2 id="information-vision">Our Vision</h2>
@@ -437,7 +436,7 @@ body.theme-dark .directory-quick-trigger:hover,body.theme-black .directory-quick
         <h2 id="information-collaborate">Collaborate With Us</h2>
         <p>We would love for this to be shaped by more than just the two of us.</p>
         <p>If you have notes, teaching material, workflow ideas, feature suggestions, or simply want to contribute, please feel free to reach out.</p>
-        <p class="information-contact">Contact <strong>Laku 張洛瑋</strong> or <strong>林揚修 / Victor Lin</strong> via <strong>Teams</strong>.</p>
+        <p class="information-contact">Contact <strong>Laku 張洛瑋</strong> or <strong>林揚修 / Victor</strong> via <strong>Teams</strong>.</p>
         <p class="information-signoff"><em>Built with love, curiosity, and the hope of enjoyable clinical training without burnout.</em></p>
       </section>
     </article>
@@ -745,15 +744,16 @@ function ankiHighlightBrowse(){var box=document.getElementById('anki-browse');bo
 var SITE_TABS=[
   {id:'directory',icon:'☎️',label:'Directory'},
   {id:'anki',icon:'🃏',label:'ER Study'},
-  {id:'information',icon:'ℹ️',label:'Information'}
+  {id:'information',icon:'ℹ️',label:'Information',mobilePrimary:false}
 ];
 var currentTab='directory',mobileTabsOpener=null;
 function tabButton(tab,className,iconClass){
   return '<button type="button" class="'+className+'" data-tab="'+esc(tab.id)+'"><span'+(iconClass?' class="'+iconClass+'"':'')+' aria-hidden="true">'+esc(tab.icon)+'</span> <span>'+esc(tab.label)+'</span></button>';
 }
+function mobilePrimaryTabs(){return SITE_TABS.filter(function(tab){return tab.mobilePrimary!==false;}).slice(0,4);}
 function buildNavigation(){
   document.getElementById('primary-nav').innerHTML=SITE_TABS.map(function(tab){return tabButton(tab,'','');}).join('');
-  var primary=SITE_TABS.slice(0,4),bottom=document.getElementById('mobile-bottom-nav');
+  var primary=mobilePrimaryTabs(),bottom=document.getElementById('mobile-bottom-nav');
   bottom.style.setProperty('--mobile-nav-count',primary.length+1);
   bottom.innerHTML=primary.map(function(tab){return tabButton(tab,'mobile-nav-item','mobile-nav-icon');}).join('')
     +'<button class="mobile-nav-item" id="mobile-more-tab" type="button" onclick="openMobileTabs()" aria-controls="mobile-tabs-layer" aria-expanded="false"><span class="mobile-nav-icon" aria-hidden="true">▦</span><span>All</span></button>';
@@ -771,7 +771,7 @@ function showTab(id){
     if(active)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
   });
   document.getElementById('mobile-current-title').textContent=meta.label;
-  var more=document.getElementById('mobile-more-tab'),primary=SITE_TABS.slice(0,4).some(function(tab){return tab.id===id;});
+  var more=document.getElementById('mobile-more-tab'),primary=mobilePrimaryTabs().some(function(tab){return tab.id===id;});
   more.classList.toggle('active',!primary);
   if(!primary)more.setAttribute('aria-current','page');else more.removeAttribute('aria-current');
 }
